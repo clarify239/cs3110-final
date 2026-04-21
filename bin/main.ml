@@ -1,1 +1,4 @@
-print_endline "hello world"
+let () =
+  Dream.run
+  @@ Dream.logger
+  @@ Dream.static "public"
