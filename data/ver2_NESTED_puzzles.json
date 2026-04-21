@@ -1,299 +1,41 @@
-{
-  "puzzles": [
-    {
-      "puzzle_id": 1,
-      "difficulty": "easy",
-      "theme": "space exploration",
-      "sentence": "On [the month [NASA's [ordinal for 11] mission] landed on the moon] 20, [year man first walked on the moon], Neil Armstrong became the first human to walk on the lunar surface.",
-      "answers": {
-        "[ordinal for 11]": "eleventh",
-        "[NASA's [ordinal for 11] mission]": "Apollo 11",
-        "[the month [NASA's [ordinal for 11] mission] landed on the moon]": "July",
-        "[year man first walked on the moon]": "1969"
-      }
-    },
-    {
-      "puzzle_id": 2,
-      "difficulty": "medium",
-      "theme": "history",
-      "sentence": "[The Big Apple, familiarly] hosted the [ordinal for number 1] World's Fair in [decade of [the war between the states]].",
-      "answers": {
-        "[the war between the states]": "Civil War",
-        "[decade of [the war between the states]]": "1860s",
-        "[The Big Apple, familiarly]": "New York",
-        "[ordinal for number 1]": "first"
-      }
-    },
-    {
-      "puzzle_id": 3,
-      "difficulty": "hard",
-      "theme": "politics",
-      "sentence": "President [FDR's full name] signed the [New Deal program that put [the unemployed] to work outdoors] into law on [month between March and May] 8, 1933.",
-      "answers": {
-        "[the unemployed]": "workers",
-        "[New Deal program that put [the unemployed] to work outdoors]": "Civilian Conservation Corps",
-        "[FDR's full name]": "Franklin Delano Roosevelt",
-        "[month between March and May]": "April"
-      }
-    },
-    {
-      "puzzle_id": 4,
-      "difficulty": "easy",
-      "theme": "disasters",
-      "sentence": "The Great [city of [deep dish pizza]] [what destroyed the city in 1871] of 1871 razed much of the city to the ground.",
-      "answers": {
-        "[deep dish pizza]": "Chicago-style",
-        "[city of [deep dish pizza]]": "Chicago",
-        "[what destroyed the city in 1871]": "Fire"
-      }
-    },
-    {
-      "puzzle_id": 5,
-      "difficulty": "easy",
-      "theme": "American history",
-      "sentence": "[City of Brotherly Love] served as [the country's [ordinal for number 1]] capital before Washington D.C. was established.",
-      "answers": {
-        "[ordinal for number 1]": "first",
-        "[the country's [ordinal for number 1]]": "the nation's first",
-        "[City of Brotherly Love]": "Philadelphia"
-      }
-    },
-    {
-      "puzzle_id": 6,
-      "difficulty": "medium",
-      "theme": "ancient history",
-      "sentence": "On [month named after [the Roman god of war]] 15, 44 BC, Julius Caesar was stabbed to death in Rome.",
-      "answers": {
-        "[the Roman god of war]": "Mars",
-        "[month named after [the Roman god of war]]": "March"
-      }
-    },
-    {
-      "puzzle_id": 7,
-      "difficulty": "medium",
-      "theme": "architecture",
-      "sentence": "The [Golden Gate ___] spanning [City by the Bay] was completed in [year between [mid-decade of the 30s] and 1940].",
-      "answers": {
-        "[Golden Gate ___]": "Bridge",
-        "[City by the Bay]": "San Francisco",
-        "[mid-decade of the 30s]": "1935",
-        "[year between [mid-decade of the 30s] and 1940]": "1937"
-      }
-    },
-    {
-      "puzzle_id": 8,
-      "difficulty": "medium",
-      "theme": "sports",
-      "sentence": "[The Windy City] hosted the [sport played with [a round ball] and a hoop] World Championship in [year the stock market crashed].",
-      "answers": {
-        "[a round ball]": "basketball",
-        "[sport played with [a round ball] and a hoop]": "basketball",
-        "[The Windy City]": "Chicago",
-        "[year the stock market crashed]": "1929"
-      }
-    },
-    {
-      "puzzle_id": 9,
-      "difficulty": "easy",
-      "theme": "American Revolution",
-      "sentence": "The [Beantown] Tea Party of 1773 was a pivotal act of [rebellion against [British taxation without representation]].",
-      "answers": {
-        "[British taxation without representation]": "tyranny",
-        "[rebellion against [British taxation without representation]]": "defiance",
-        "[Beantown]": "Boston"
-      }
-    },
-    {
-      "puzzle_id": 10,
-      "difficulty": "medium",
-      "theme": "industry",
-      "sentence": "[Motor City] automaker Henry Ford introduced the Model T in [year [the unsinkable ship] sank].",
-      "answers": {
-        "[the unsinkable ship]": "Titanic",
-        "[year [the unsinkable ship] sank]": "1912",
-        "[Motor City]": "Detroit"
-      }
-    },
-    {
-      "puzzle_id": 11,
-      "difficulty": "medium",
-      "theme": "disasters",
-      "sentence": "[Crescent City] was struck by [Hurricane [a woman's name starting with K]] on [month before school starts] 29, 2005.",
-      "answers": {
-        "[a woman's name starting with K]": "Katrina",
-        "[Hurricane [a woman's name starting with K]]": "Hurricane Katrina",
-        "[Crescent City]": "New Orleans",
-        "[month before school starts]": "August"
-      }
-    },
-    {
-      "puzzle_id": 12,
-      "difficulty": "hard",
-      "theme": "American history",
-      "sentence": "[The Empire State], home of the [Statue of [what the torch represents]], became the [ordinal of [ten plus one]] state to ratify the Constitution.",
-      "answers": {
-        "[what the torch represents]": "Liberty",
-        "[Statue of [what the torch represents]]": "Statue of Liberty",
-        "[ten plus one]": "eleven",
-        "[ordinal of [ten plus one]]": "eleventh",
-        "[The Empire State]": "New York"
-      }
-    },
-    {
-      "puzzle_id": 13,
-      "difficulty": "medium",
-      "theme": "sports",
-      "sentence": "[City of Angels] hosted the [summer sporting event held every [number of years between Olympics] years] in 1984.",
-      "answers": {
-        "[number of years between Olympics]": "four",
-        "[summer sporting event held every [number of years between Olympics] years]": "Olympics",
-        "[City of Angels]": "Los Angeles"
-      }
-    },
-    {
-      "puzzle_id": 14,
-      "difficulty": "hard",
-      "theme": "exploration",
-      "sentence": "On [month that contains [lover's holiday]] 6, 1929, explorer Richard Byrd became the first person to fly over the South Pole.",
-      "answers": {
-        "[lover's holiday]": "Valentine's Day",
-        "[month that contains [lover's holiday]]": "February"
-      }
-    },
-    {
-      "puzzle_id": 15,
-      "difficulty": "medium",
-      "theme": "space exploration",
-      "sentence": "The Space [___ that goes back and forth] program launched its first mission from Cape Canaveral in [year after [the last year of the 70s]].",
-      "answers": {
-        "[___ that goes back and forth]": "Shuttle",
-        "[the last year of the 70s]": "1980",
-        "[year after [the last year of the 70s]]": "1981"
-      }
-    },
-    {
-      "puzzle_id": 16,
-      "difficulty": "hard",
-      "theme": "sports",
-      "sentence": "[Steel City] became home to the [NFL team named after [the city's main industry]] in the [decade of [FDR's New Deal]].",
-      "answers": {
-        "[the city's main industry]": "steel",
-        "[NFL team named after [the city's main industry]]": "Steelers",
-        "[FDR's New Deal]": "the Great Depression",
-        "[decade of [FDR's New Deal]]": "1930s",
-        "[Steel City]": "Pittsburgh"
-      }
-    },
-    {
-      "puzzle_id": 17,
-      "difficulty": "easy",
-      "theme": "history",
-      "sentence": "[Sin City] was founded in [the Silver State] in [year [five] years after 1900].",
-      "answers": {
-        "[five]": "5",
-        "[year [five] years after 1900]": "1905",
-        "[Sin City]": "Las Vegas",
-        "[the Silver State]": "Nevada"
-      }
-    },
-    {
-      "puzzle_id": 18,
-      "difficulty": "easy",
-      "theme": "culture",
-      "sentence": "The French Quarter of [Crescent City] is famous for its [annual pre-[Christian fasting season] celebration].",
-      "answers": {
-        "[Christian fasting season]": "Lent",
-        "[annual pre-[Christian fasting season] celebration]": "Mardi Gras",
-        "[Crescent City]": "New Orleans"
-      }
-    },
-    {
-      "puzzle_id": 19,
-      "difficulty": "medium",
-      "theme": "architecture",
-      "sentence": "[Gateway to the West] completed its famous Gateway [___ shape] in [year of [the Vietnam buildup]].",
-      "answers": {
-        "[___ shape]": "Arch",
-        "[the Vietnam buildup]": "1965 escalation",
-        "[year of [the Vietnam buildup]]": "1965",
-        "[Gateway to the West]": "St. Louis"
-      }
-    },
-    {
-      "puzzle_id": 20,
-      "difficulty": "easy",
-      "theme": "American Revolution",
-      "sentence": "On [month of American independence] 4, [year [the Declaration] was signed], the Continental Congress adopted the Declaration of Independence.",
-      "answers": {
-        "[the Declaration]": "Declaration of Independence",
-        "[year [the Declaration] was signed]": "1776",
-        "[month of American independence]": "July"
-      }
-    },
-    {
-      "puzzle_id": 21,
-      "difficulty": "hard",
-      "theme": "sports",
-      "sentence": "[Mile High City] hosted the [[trophy named after [a Canadian Lord]] Cup] Finals in [year of [the September 11 attacks]].",
-      "answers": {
-        "[a Canadian Lord]": "Stanley",
-        "[trophy named after [a Canadian Lord]]": "Stanley",
-        "[[trophy named after [a Canadian Lord]] Cup]": "Stanley Cup",
-        "[the September 11 attacks]": "9/11",
-        "[year of [the September 11 attacks]]": "2001",
-        "[Mile High City]": "Denver"
-      }
-    },
-    {
-      "puzzle_id": 22,
-      "difficulty": "medium",
-      "theme": "culture",
-      "sentence": "[Emerald City] became the home of [grunge music] during the [decade of [dial-up internet and Kurt Cobain]].",
-      "answers": {
-        "[dial-up internet and Kurt Cobain]": "the 90s",
-        "[decade of [dial-up internet and Kurt Cobain]]": "1990s",
-        "[Emerald City]": "Seattle",
-        "[grunge music]": "grunge"
-      }
-    },
-    {
-      "puzzle_id": 23,
-      "difficulty": "medium",
-      "theme": "sports",
-      "sentence": "[Beantown] has hosted the annual [26.2-mile footrace] every [month of spring showers] since [year [two years after the end of the 19th century's 9th decade]].",
-      "answers": {
-        "[two years after the end of the 19th century's 9th decade]": "1895",
-        "[year [two years after the end of the 19th century's 9th decade]]": "1897",
-        "[Beantown]": "Boston",
-        "[26.2-mile footrace]": "marathon",
-        "[month of spring showers]": "April"
-      }
-    },
-    {
-      "puzzle_id": 24,
-      "difficulty": "medium",
-      "theme": "culture",
-      "sentence": "[Music City USA] is home to the Grand Ole [___ as in the Metropolitan ___], which has hosted live performances since the [decade of [jazz and flappers]].",
-      "answers": {
-        "[jazz and flappers]": "Roaring Twenties",
-        "[decade of [jazz and flappers]]": "1920s",
-        "[Music City USA]": "Nashville",
-        "[___ as in the Metropolitan ___]": "Opera"
-      }
-    },
-    {
-      "puzzle_id": 25,
-      "difficulty": "hard",
-      "theme": "American history",
-      "sentence": "[City of Brotherly Love]'s [famous [cracked ___]] rang for the last time on [holiday celebrating American independence] in [year [Andrew Jackson] began his second term].",
-      "answers": {
-        "[cracked ___]": "Bell",
-        "[famous [cracked ___]]": "Liberty Bell",
-        "[Andrew Jackson]": "Old Hickory",
-        "[year [Andrew Jackson] began his second term]": "1833",
-        "[City of Brotherly Love]": "Philadelphia",
-        "[holiday celebrating American independence]": "Independence Day"
-      }
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "theme": "space exploration",
+    "title": "Moon Landing",
+    "root": {
+      "label": "NASA's mission that landed on the moon on July 20, 1969",
+      "answer": "Apollo 11",
+      "children": [
+        {
+          "label": "the month it landed on the moon",
+          "answer": "July",
+          "children": [
+            {
+              "label": "ordinal for 11",
+              "answer": "eleventh",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Neil Armstrong's mission to the lunar surface",
+          "answer": "Apollo 11",
+          "children": [
+            {
+              "label": "NASA's eleventh mission",
+              "answer": "eleventh",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "year man first walked on the moon",
+          "answer": "1969",
+          "children": []
+        }
+      ]
     }
-  ]
-}
+  }
+]

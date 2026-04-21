@@ -1,1 +1,3 @@
-(executable (name main))
+(executable
+ (name main)
+ (libraries cs3110_final))
