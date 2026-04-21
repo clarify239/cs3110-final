@@ -1,0 +1,5 @@
+(test
+ (name test_game)
+ (libraries ounit2 cs3110_final)
+ (deps
+  (glob_files_rec ../data/*)))

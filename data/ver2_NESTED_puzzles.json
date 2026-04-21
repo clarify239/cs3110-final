@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
     id         = 1;
     difficulty = "easy";
@@ -828,3 +829,46 @@
     Text "."
     ]
   };
+=======
+[
+  {
+    "id": 1,
+    "difficulty": "easy",
+    "theme": "space exploration",
+    "title": "Moon Landing",
+    "root": {
+      "label": "NASA's mission that landed on the moon on July 20, 1969",
+      "answer": "Apollo 11",
+      "children": [
+        {
+          "label": "the month it landed on the moon",
+          "answer": "July",
+          "children": [
+            {
+              "label": "ordinal for 11",
+              "answer": "eleventh",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Neil Armstrong's mission to the lunar surface",
+          "answer": "Apollo 11",
+          "children": [
+            {
+              "label": "NASA's eleventh mission",
+              "answer": "eleventh",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "year man first walked on the moon",
+          "answer": "1969",
+          "children": []
+        }
+      ]
+    }
+  }
+]
+>>>>>>> origin/main

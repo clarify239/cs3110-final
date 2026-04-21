@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bracket City</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
+ <style>
     :root {
       --ink:      #1a1510;
       --paper:    #f5f0e8;
@@ -19,9 +19,7 @@
       --red:      #8b2020;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--paper);
@@ -31,16 +29,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Grain overlay ── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.6;
-    }
 
     /* ── MASTHEAD ── */
     .masthead {
@@ -139,7 +127,7 @@
 
     nav a {
       font-family: 'DM Mono', monospace;
-      font-size: 0.62rem;
+      font-size: 0.80rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink);
@@ -158,7 +146,6 @@
     /* ── LAYOUT GRID ── */
     .page-grid {
       display: grid;
-      grid-template-columns: 1fr 2px 2fr 2px 1fr;
       gap: 0;
       max-width: 1200px;
       margin: 0 auto;
@@ -169,270 +156,8 @@
       background: var(--rule);
       margin: 2rem 0;
     }
-
-    /* ── HERO COL (center) ── */
-    .hero-col {
-      padding: 2.5rem 3rem;
-    }
-
-    .hero-overline {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.7rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .hero-overline::before,
-    .hero-overline::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
-    }
-
-    .hero-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.5rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 1.2rem;
-      letter-spacing: -0.01em;
-    }
-
-    .hero-headline em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    /* ── LIVE DEMO ── */
-    .demo-card {
-      background: var(--ink);
-      border: 1px solid var(--gold);
-      border-radius: 2px;
-      padding: 1.4rem 1.6rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .demo-card::before {
-      content: 'TODAY\'S PUZZLE — LIVE PREVIEW';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      background: var(--gold);
-      color: var(--ink);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.2em;
-      text-align: center;
-      padding: 0.22rem;
-    }
-
-    .demo-sentence {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #e8e0d0;
-      margin-top: 1.4rem;
-    }
-
-    .demo-bracket {
-      color: var(--gold-lt);
-      font-style: italic;
-      border-bottom: 1px solid var(--gold);
-      cursor: default;
-      transition: background 0.2s;
-      padding: 0 1px;
-    }
-
-    .demo-bracket.typing {
-      background: rgba(184,144,42,0.15);
-      animation: bracket-pulse 1s ease-in-out infinite;
-    }
-
-    .demo-bracket.solved {
-      color: #7dd4a0;
-      border-bottom-color: #7dd4a0;
-      font-style: normal;
-    }
-
-    @keyframes bracket-pulse {
-      0%, 100% { background: rgba(184,144,42,0.1); }
-      50%       { background: rgba(184,144,42,0.25); }
-    }
-
-    .demo-input-row {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-      align-items: center;
-    }
-
-    .demo-clue {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      color: #a09080;
-      text-transform: uppercase;
-      margin-bottom: 0.3rem;
-    }
-
-    .demo-typed {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--gold-lt);
-      min-height: 1.2rem;
-    }
-
-    .demo-typed .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 1em;
-      background: var(--gold-lt);
-      margin-left: 1px;
-      vertical-align: middle;
-      animation: blink 0.9s step-end infinite;
-    }
-
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-    .demo-enter {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      color: #a09080;
-      border: 1px solid #a09080;
-      border-radius: 2px;
-      padding: 0.15rem 0.4rem;
-      letter-spacing: 0.05em;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .demo-enter.show { opacity: 1; }
-
-    .hero-body {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--muted);
-      margin-bottom: 1.2rem;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 0.8rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .cta-primary {
-      display: inline-block;
-      background: var(--ink);
-      color: var(--paper);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 0.75rem 1.8rem;
-      border: 2px solid var(--ink);
-      transition: background 0.15s, color 0.15s;
-    }
-    .cta-primary:hover {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: #fff;
-    }
-
-    .cta-secondary {
-      display: inline-block;
-      color: var(--ink);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      text-decoration: none;
-      border-bottom: 1px solid var(--rule);
-      padding-bottom: 2px;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .cta-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-    .streak-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      border: 1px solid var(--rule);
-      padding: 0.3rem 0.7rem;
-      border-radius: 100px;
-    }
-
-    .streak-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-    }
-
-    /* ── SIDE COLS ── */
-    .side-col {
-      padding: 2.5rem 2rem;
-    }
-
-    /* Ranks panel */
-    .panel-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      border-bottom: 2px solid var(--ink);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .rank-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-    }
-
-    .rank-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid var(--rule);
-      font-size: 0.9rem;
-    }
-
-    .rank-name {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-weight: 700;
-    }
-
-    .rank-detail {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .rank-crown { color: var(--gold); font-size: 0.8rem; }
-    .rank-silver { color: #909090; font-size: 0.8rem; }
-    .rank-muted  { color: var(--muted); font-size: 0.8rem; }
-
-    /* How to play */
-    .how-to {
+    
+      .how-to {
       margin-top: 2rem;
     }
 
@@ -440,7 +165,7 @@
       display: flex;
       gap: 0.8rem;
       margin-bottom: 1rem;
-      align-items: flex-start;
+      
     }
 
     .step-num {
@@ -465,82 +190,15 @@
       font-style: italic;
     }
 
-    /* Right col — archive / stats */
-    .stat-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-      margin-bottom: 1.5rem;
+    .panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 1.8rem;
     }
-
-    .stat-box {
-      border: 1px solid var(--rule);
-      padding: 0.8rem;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      line-height: 1;
-      color: var(--ink);
-    }
-
-    .stat-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.52rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.2rem;
-    }
-
-    /* Archive list */
-    .archive-list {
-      list-style: none;
-    }
-
-    .archive-list li {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid var(--rule);
-      cursor: pointer;
-      transition: background 0.1s;
-    }
-
-    .archive-list li:hover {
-      background: var(--paper2);
-      padding-left: 0.3rem;
-    }
-
-    .archive-date {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-    }
-
-    .archive-theme {
-      font-family: 'Cormorant Garamond', serif;
-      font-style: italic;
-      font-size: 0.9rem;
-    }
-
-    .archive-diff {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.1rem 0.4rem;
-      border-radius: 100px;
-    }
-
-    .diff-easy   { color: #2d6a4a; background: #2d6a4a18; }
-    .diff-medium { color: var(--gold); background: #b8902a18; }
-    .diff-hard   { color: var(--red); background: #8b202018; }
 
     /* ── FOOTER STRIP ── */
     footer {
@@ -582,32 +240,7 @@
       letter-spacing: 0.1em;
       color: var(--muted);
     }
-
-    /* ── PAGE LOAD ANIMATIONS ── */
-    @keyframes fade-up {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .masthead        { animation: fade-up 0.5s ease both; }
-    nav              { animation: fade-up 0.5s 0.1s ease both; }
-    .hero-col        { animation: fade-up 0.5s 0.2s ease both; }
-    .side-col:first-of-type { animation: fade-up 0.5s 0.25s ease both; }
-    .side-col:last-of-type  { animation: fade-up 0.5s 0.3s ease both; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      .page-grid {
-        grid-template-columns: 1fr;
-      }
-      .col-rule { display: none; }
-      .hero-col { padding: 2rem 1rem; }
-      .side-col { padding: 1.5rem 1rem; border-top: 2px solid var(--rule); }
-      .masthead-logo::before,
-      .masthead-logo::after { display: none; }
-      nav a { padding: 0.55rem 0.9rem; font-size: 0.55rem; }
-    }
-  </style>
+  </style> 
 </head>
 <body>
 
@@ -615,33 +248,21 @@
 <header class="masthead">
   <div class="masthead-top">
     <span class="masthead-date" id="mastheadDate"></span>
-    <span class="masthead-tagline">Unravel the sentence, layer by layer</span>
     <span class="masthead-date">Daily Puzzle</span>
 </div>
  <div style="text-align:center; padding: 0.5rem 0;">
-    <img src="/assets/logo.png" alt="Team Logo" style="height: 200px;" />
+    <img src="/assets/logo.png" alt="Team Logo" style="height: 35rem;" />
   </div>
-  <div class="masthead-logo">
-    <span class="logo-bracket-l">[</span><span class="logo-word">Bracket <span class="logo-city">City</span></span><span class="logo-bracket-r">]</span>
-  </div>
-  <div class="masthead-sub">A Daily Nested Clue Puzzle &nbsp;◆&nbsp; Solve the Innermost First</div>
 </header>
 
-<!-- ── NAV ── -->
 <nav>
-  <a href="#" class="active">Today's Puzzle</a>
-  <a href="#how-to-play">How to Play</a>
-  <a href="index.html">Play</a>
+  <a href="#" class="active">Home</a>
+  <a href="printOcaml.html">Play</a>
 </nav>
 
-<!-- ── MAIN GRID ── -->
 <div class="page-grid">
-
-  <!-- LEFT COL -->
-  <aside class="side-col">
-
-
-    <div class="how-to" id="how-to-play">
+    <div class="how-to-wrapper">
+    <div class="how-to">
       <div class="panel-title" style="margin-top:1.5rem">How to Play</div>
 
       <div class="step">
@@ -658,70 +279,11 @@
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <div class="step-body">Keep going until the full <strong>historical sentence</strong> is revealed. Fewer mistakes = higher rank.</div>
+        <div class="step-body">Keep going until the full <strong> sentence</strong> is revealed. </div>
       </div>
     </div>
-
-  </aside>
-
-  <div class="col-rule"></div>
-
-  <!-- CENTER / HERO COL -->
-  <main class="hero-col">
-
-    <div class="hero-overline">Today's puzzle</div>
-
-    <h1 class="hero-headline">
-      Each answer unlocks<br>
-      <em>the next clue</em> hidden inside.
-    </h1>
-
-    <!-- Live animated demo -->
-    <div class="demo-card">
-      <div class="demo-sentence" id="demoSentence"></div>
-      <div style="margin-top:1rem; border-top: 1px solid #3a3028; padding-top:0.8rem;">
-        <div class="demo-clue" id="demoClueLabel">Current clue</div>
-        <div class="demo-typed"><span id="demoTyped"></span><span class="cursor"></span></div>
-      </div>
     </div>
 
-    <p class="hero-body">
-      Every day a new historical fact is hidden inside a sentence of nested brackets.
-      Peel back each layer — from the innermost clue outward — to reveal the full story.
-    </p>
-
-    <div class="cta-row">
-      <a href="index.html" class="cta-primary">Play Today's Puzzle</a>
-      <a href="#archive" class="cta-secondary">Browse Archive</a>
-      <span class="streak-badge"><span class="streak-dot"></span><span id="streakText">Start your streak</span></span>
-    </div>
-
-  </main>
-
-  <div class="col-rule"></div>
-
-  <!-- RIGHT COL -->
-  <aside class="side-col">
-
-    <div class="stat-grid">
-      <div class="stat-box">
-        <div class="stat-num">25</div>
-        <div class="stat-label">Puzzles</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="statPlayed">0</div>
-        <div class="stat-label">Played</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-num" id="statStreak">0</div>
-        <div class="stat-label">Streak</div>
-      </div>
-    </div>
-
-    <div class="panel-title" id="archive">Archive</div>
-    <ul class="archive-list" id="archiveList"></ul>
-
-  </aside>
 
 </div>
 
@@ -730,134 +292,10 @@
   <div class="f-logo">[Bracket City]</div>
   <div class="f-links">
     <a href="#">About</a>
-    <a href="#">Feedback</a>
     <a href="index.html">Play</a>
   </div>
   <div class="f-copy">Built by Team 67</div>
 </footer>
-
-<script>
-// ── Date ──
-const now = new Date();
-document.getElementById('mastheadDate').textContent =
-  now.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-
-// ── Stats from localStorage ──
-const played  = parseInt(localStorage.getItem('bc_played')  || '0');
-const streak  = parseInt(localStorage.getItem('bc_streak')  || '0');
-const king    = parseInt(localStorage.getItem('bc_king')    || '0');
-document.getElementById('statPlayed').textContent = played;
-document.getElementById('statStreak').textContent = streak;
-document.getElementById('statKing').textContent   = king;
-if (streak > 0) document.getElementById('streakText').textContent = `${streak}-day streak`;
-
-// ── Archive list ──
-const ARCHIVE = [
-  { date:'Apr 20', theme:'Space Exploration', diff:'easy' },
-  { date:'Apr 19', theme:'Ancient History',   diff:'medium' },
-  { date:'Apr 18', theme:'Architecture',      diff:'medium' },
-  { date:'Apr 17', theme:'American Revolution', diff:'easy' },
-  { date:'Apr 16', theme:'Industry',          diff:'hard' },
-  { date:'Apr 15', theme:'Sports',            diff:'medium' },
-  { date:'Apr 14', theme:'Disasters',         diff:'easy' },
-];
-
-const list = document.getElementById('archiveList');
-ARCHIVE.forEach(item => {
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <span class="archive-date">${item.date}</span>
-    <span class="archive-theme">${item.theme}</span>
-    <span class="archive-diff diff-${item.diff}">${item.diff}</span>
-  `;
-  li.addEventListener('click', () => window.location.href = 'index.html');
-  list.appendChild(li);
-});
-
-// ── Animated demo ──
-// Shows puzzle 6: "On [month named after [the Roman god of war]] 15, 44 BC..."
-const DEMO = {
-  segments: [
-    { type: 'text',    content: 'On ' },
-    { type: 'bracket', id: 'outer', content: 'month named after [the Roman god of war]',
-      inner: { type:'bracket', id:'inner', content:'the Roman god of war' },
-      answer: 'March' },
-    { type: 'text',    content: ' 15, 44 BC, Julius Caesar was stabbed to death in Rome.' },
-  ],
-  steps: [
-    { clue: 'the Roman god of war', answer: 'Mars',  target: 'inner', delay: 1800 },
-    { clue: 'month named after Mars', answer: 'March', target: 'outer', delay: 2200 },
-  ]
-};
-
-function buildSentenceHTML(innerSolved, outerSolved) {
-  let html = 'On ';
-  if (outerSolved) {
-    html += `<span class="demo-bracket solved">March</span>`;
-  } else if (innerSolved) {
-    html += `<span class="demo-bracket typing">month named after <span class="demo-bracket solved">Mars</span></span>`;
-  } else {
-    html += `<span class="demo-bracket typing">month named after <span class="demo-bracket typing">the Roman god of war</span></span>`;
-  }
-  html += ' 15, 44 BC, Julius Caesar was stabbed to death in Rome.';
-  return html;
-}
-
-let demoPhase = 0; // 0=typing inner, 1=solved inner, 2=typing outer, 3=done, then loop
-
-function runDemo() {
-  const sentenceEl = document.getElementById('demoSentence');
-  const typedEl    = document.getElementById('demoTyped');
-  const clueEl     = document.getElementById('demoClueLabel');
-
-  function typeAnswer(answer, cb) {
-    let i = 0;
-    typedEl.textContent = '';
-    const iv = setInterval(() => {
-      typedEl.textContent += answer[i];
-      i++;
-      if (i >= answer.length) {
-        clearInterval(iv);
-        setTimeout(cb, 600);
-      }
-    }, 110);
-  }
-
-  function step0() {
-    // Show innermost bracket active
-    sentenceEl.innerHTML = buildSentenceHTML(false, false);
-    clueEl.textContent = 'Clue → the Roman god of war';
-    typedEl.textContent = '';
-    setTimeout(() => typeAnswer('Mars', step1), 1000);
-  }
-
-  function step1() {
-    // Inner solved — show outer active
-    sentenceEl.innerHTML = buildSentenceHTML(true, false);
-    clueEl.textContent = 'Clue → month named after Mars';
-    typedEl.textContent = '';
-    setTimeout(() => typeAnswer('March', step2), 800);
-  }
-
-  function step2() {
-    // Fully solved
-    sentenceEl.innerHTML = buildSentenceHTML(false, true);
-    clueEl.textContent = 'Puzzle complete!';
-    typedEl.textContent = '✓ Solved';
-    setTimeout(() => {
-      typedEl.textContent = '';
-      setTimeout(step0, 600);
-    }, 2800);
-  }
-
-  step0();
-}
-
-// Start demo after fonts load
-document.fonts.ready.then(() => {
-  setTimeout(runDemo, 500);
-});
-</script>
 
 </body>
 </html>
