@@ -1,0 +1,3 @@
+(executable
+ (name ocamlTerminal)
+ (libraries dream lwt.unix))
