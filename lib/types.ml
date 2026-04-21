@@ -3,6 +3,7 @@ type node = {
   label : string;
   answer : string;
   children : node list;
+  solved : bool;
 }
 
 (* a full puzzle loaded from JSON *)
@@ -13,3 +14,7 @@ type puzzle = {
   title : string;
   root : node;
 }
+
+type label_part =
+  | Text of string
+  | Slot of int
