@@ -1,3 +1,3 @@
 (executable
  (name main)
- (libraries cs3110_final))
+ (libraries dream yojson cs3110_final))

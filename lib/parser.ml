@@ -7,6 +7,7 @@ let rec parse_node json =
     label = json |> member "label" |> to_string;
     answer = json |> member "answer" |> to_string;
     children = json |> member "children" |> to_list |> List.map parse_node;
+    solved = false;
   }
 
 let parse_puzzle json =

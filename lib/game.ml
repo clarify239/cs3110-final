@@ -1,7 +1,10 @@
 (* answer checking, state transitions *)
 
 open Types
-open Parser
+
+(* Types.node already carries a solved flag, so the parsed puzzle IS the
+   game state — just alias the type for clarity in function signatures. *)
+type state = puzzle
 
 (* PURPOSE: canonicalize a string for answer comparison so "July", " July ",
    and "july" all match the same node.
@@ -34,7 +37,7 @@ let tokenize_label (_label : string) : label_part list = failwith "TODO"
           - Text s -> append s
           - Slot i -> append (render_node (List.nth n.children i))
      3. Wrap the body as "[" ^ body ^ "]" and return. *)
-let rec render_node (_n : game_node) : string = failwith "TODO"
+let rec render_node (_n : node) : string = failwith "TODO"
 
 (* PURPOSE: produce the full puzzle display string shown to the player.
    STEPS:
@@ -53,7 +56,7 @@ let render (_s : state) : string = failwith "TODO"
             the subtree below is fully solved).
           - else recurse into n's unsolved children to find deeper exposed nodes.
      3. Return the collected list. *)
-let exposed (_s : state) : game_node list = failwith "TODO"
+let exposed (_s : state) : node list = failwith "TODO"
 
 (* PURPOSE: accept a user answer; if it matches an exposed node's answer,
    return a new state with that node flipped to solved.
