@@ -19,8 +19,6 @@
       --red:      #8b2020;
     }
 
-
-
     body {
       background: var(--paper);
       color: var(--ink);
@@ -29,8 +27,6 @@
       overflow-x: hidden;
     }
 
-
-    /* ── MASTHEAD ── */
     .masthead {
       border-bottom: 3px double var(--ink);
       padding: 1.2rem 4vw 0;
@@ -104,19 +100,6 @@
       color: var(--ink);
     }
 
-    .masthead-sub {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-      padding: 0.4rem 0 0.8rem;
-      border-top: 1px solid var(--rule);
-      margin-top: 0.4rem;
-    }
-
-    /* ── NAV ── */
     nav {
       display: flex;
       justify-content: center;
@@ -143,7 +126,6 @@
       color: #fff;
     }
 
-    /* ── LAYOUT GRID ── */
     .page-grid {
       display: grid;
       gap: 0;
@@ -152,12 +134,7 @@
       padding: 0 4vw;
     }
 
-    .col-rule {
-      background: var(--rule);
-      margin: 2rem 0;
-    }
-    
-      .how-to {
+    .how-to {
       margin-top: 2rem;
     }
 
@@ -233,13 +210,6 @@
     }
 
     footer .f-links a:hover { color: var(--ink); }
-
-    footer .f-copy {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.55rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-    }
   </style> 
 </head>
 <body>
@@ -247,7 +217,6 @@
 <!-- ── MASTHEAD ── -->
 <header class="masthead">
   <div class="masthead-top">
-    <span class="masthead-date" id="mastheadDate"></span>
     <span class="masthead-date">Daily Puzzle</span>
 </div>
  <div style="text-align:center; padding: 0.5rem 0;">
@@ -294,7 +263,7 @@
     <a href="#">About</a>
     <a href="index.html">Play</a>
   </div>
-  <div class="f-copy">Built by Team 67</div>
+  <div class="f-logo">Built by Team 67</div>
 </footer>
 
 </body>
