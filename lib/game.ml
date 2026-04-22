@@ -18,13 +18,13 @@ let normalize (_s : string) : string = failwith "TODO"
    EXAMPLE: "like most {0}lin and {1} movies" -> [ Text "like most "; Slot 0;
    Text "lin and "; Slot 1; Text " movies" ] NOTE: this does NOT recurse into
    children. Nesting is handled by render_node, which calls itself on
-   children.(i) when it sees Slot i. A '{' not followed by digits+'}' is kept
-   as literal text. Adjacent slots (e.g. "{0}{1}") produce NO empty Text
-   between them. *)
+   children.(i) when it sees Slot i. A '{' not followed by digits+'}' is kept as
+   literal text. Adjacent slots (e.g. "{0}{1}") produce NO empty Text between
+   them. *)
 let tokenize_label (label : string) : label_part list =
   let n = String.length label in
-  (* scan_digits i: walk forward over ASCII digits starting at i.
-     Returns (index_after_digits, digit_string). Empty string means no digits. *)
+  (* scan_digits i: walk forward over ASCII digits starting at i. Returns
+     (index_after_digits, digit_string). Empty string means no digits. *)
   let rec scan_digits i =
     if i < n && label.[i] >= '0' && label.[i] <= '9' then
       let e, s = scan_digits (i + 1) in
