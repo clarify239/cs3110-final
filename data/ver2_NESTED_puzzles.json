@@ -76,5 +76,86 @@
         }
       ]
     }
+  },
+  {
+    "id": 2,
+    "difficulty": "hard",
+    "theme": "fast food debuts",
+    "title": "The Big Mac Debuts",
+    "root": {
+      "label": "the {0} {1} debuts",
+      "answer": "the Big Mac debuts",
+      "children": [
+        {
+          "label": "the Plough 🇬🇧, Großer {0}en 🇩🇪, the ___ Dipper 🇺🇸",
+          "answer": "Big",
+          "children": [
+            {
+              "label": "move like a {0}",
+              "answer": "Wag",
+              "children": [
+                {
+                  "label": "word after {0} or pony 💈",
+                  "answer": "tail",
+                  "children": [
+                    {
+                      "label": "o{0}er",
+                      "answer": "pig",
+                      "children": [
+                        {
+                          "label": "well for a {0}l",
+                          "answer": "ink",
+                          "children": [
+                            {
+                              "label": "suffix with {0} or Day 🤒",
+                              "answer": "quil",
+                              "children": [
+                                {
+                                  "label": "the Empire State, po{0}y 📬",
+                                  "answer": "Ny",
+                                  "children": [
+                                    {
+                                      "label": "buy time",
+                                      "answer": "stall",
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Book with Air, {0}, and {1} variants",
+          "answer": "Mac",
+          "children": [
+            {
+              "label": "one on a list on the left 👍",
+              "answer": "Pro",
+              "children": []
+            },
+            {
+              "label": "prefix with {0} or liberal or lithic 🪨",
+              "answer": "Neo",
+              "children": [
+                {
+                  "label": "one on a list on the right 👎",
+                  "answer": "con",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 ]
