@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Fira Code", monospace;
+  background: #ececec;
+  color: #111;
+}
+
+.page {
+  width: 78vw;
+  max-width: 62rem;
+  margin: 2vh auto;
+}
+
+.top-card,
+.game-card {
+  background: #f4f4f4;
+  border: 0.1vw solid #d7d7d7;
+  border-radius: 1.5vw;
+}
+
+.top-card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2vw;
+  padding: 2vw;
+  margin-bottom: 2vh;
+}
+
+.center-info {
+  flex: 1;
+  text-align: center;
+}
+
+.center-info h1,
+.center-info h2,
+.center-info p {
+  margin: 0;
+}
+
+.center-info h1 {
+  font-size: clamp(1.8rem, 4.5vw, 4.5rem);
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.center-info h2 {
+  margin-top: 1vh;
+  font-size: clamp(1rem, 2.2vw, 2.2rem);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.center-info p {
+  margin-top: 1vh;
+  font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+  color: #555;
+}
+
+.game-card {
+  padding: 2vw;
+}
+
+.puzzle-box {
+  border-radius: 1.2vw;
+  padding: 2.5vw;
+}
+
+.puzzle-text {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 2rem);
+  line-height: 1.6;
+}
+
+.chip {
+  display: inline-block;
+  background: #8096e7;
+  color: white;
+  padding: 0.1em 0.45em;
+  border-radius: 0.4vw;
+  font-weight: 700;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 18vw;
+  gap: 1vw;
+  margin-top: 2vh;
+}
+
+#guess,
+#submit {
+  font: inherit;
+  border-radius: 1vw;
+}
+
+#guess {
+  padding: 1.2em;
+  border: 0.15vw solid #d0d0d0;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+#submit {
+  border: none;
+  background: #000000;
+  color: white;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+}
+
+#submit:hover {
+  background: #343434;
+  cursor: pointer;
+}

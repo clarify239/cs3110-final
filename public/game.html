@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>OCaml Bracket City</title>
+    <link rel="stylesheet" href="game-styles.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            font-family: "Fira Code", monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <pre id="out"></pre>
+    <!-- 
+    <input type="text" id="guess" placeholder="Type your guess here">
+    <button id="submit">Submit</button> -->
+
+    <main class="page">
+        <header class="top-card">
+            <section class="center-info">
+                <h1></span>🟢 [BRACKET CITY] 🟢</span></h1>
+                <h2>group 67</h2>
+                <p>Claire, Amber, Monisha, Anshu, & Neetu</p>
+            </section>
+        </header>
+
+        <section class="game-card">
+            <article class="puzzle-box">
+                <p class="puzzle-text">
+                    <span class="chip" id="bracket1"></span> loves CS3110!
+                </p>
+            </article>
+
+            <section class="input-row">
+                <input type="text" id="guess" placeholder="type an answer..." />
+                <button id="submit">[enter]</button>
+            </section>
+        </section>
+    </main>
+
+    <script src="game-scripts.js"></script>
+</body>
+
+</html>
