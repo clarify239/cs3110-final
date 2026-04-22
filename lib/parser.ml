@@ -21,3 +21,13 @@ let parse_puzzle json =
 
 let load_puzzles filepath =
   Yojson.Basic.from_file filepath |> to_list |> List.map parse_puzzle
+
+(*returns puzzle Option with random puzzle of given difficulty and None if
+  difficulty doesn't exist*)
+let choose_puzzle difficulty puzzles =
+  let filtered = List.filter (fun p -> difficulty = p.difficulty) puzzles in
+  match filtered with
+  | [] -> None
+  | _ ->
+      let index = Random.int (List.length filtered) in
+      Some (List.nth filtered index)

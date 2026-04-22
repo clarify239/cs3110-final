@@ -157,5 +157,16 @@
         }
       ]
     }
+  },
+  {
+    "id":3,
+    "difficulty": "easy",
+    "theme": "computer science",
+    "title": "best class",
+    "root": {
+      "label": "Group 67's favorite class: {0}",
+      "answer": "CS3110",
+      "children" : []
+    }
   }
 ]

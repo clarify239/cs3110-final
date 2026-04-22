@@ -3,7 +3,10 @@ open Cs3110_final.Types
 open Cs3110_final.Parser
 open Cs3110_final.Game
 
+(** list of puzzles from the json file*)
 let puzzles = load_puzzles "../data/ver2_NESTED_puzzles.json"
+
+(** the first puzzle in the list of loaded puzzles*)
 let puzzle = List.hd puzzles
 
 (* Pretty-print a label_part list so assert_equal failures are readable. *)
@@ -41,7 +44,10 @@ let tests =
          >:: fun _ ->
            assert_equal
              [
-               Text "like most "; Slot 0; Text "lin and "; Slot 1;
+               Text "like most ";
+               Slot 0;
+               Text "lin and ";
+               Slot 1;
                Text " movies";
              ]
              (tokenize_label "like most {0}lin and {1} movies")
@@ -60,9 +66,7 @@ let tests =
              ~printer:string_of_parts );
          ( "tokenize_label handles a slot at the very start (no leading Text)"
          >:: fun _ ->
-           assert_equal
-             [ Slot 0; Text "lin" ]
-             (tokenize_label "{0}lin")
+           assert_equal [ Slot 0; Text "lin" ] (tokenize_label "{0}lin")
              ~printer:string_of_parts );
          ( "tokenize_label parses multi-digit slot indices" >:: fun _ ->
            assert_equal
@@ -76,6 +80,20 @@ let tests =
              [ Text "cost is {5 dollars" ]
              (tokenize_label "cost is {5 dollars")
              ~printer:string_of_parts );
+         ( "choose_puzzle returns a random puzzle with the right difficulty \
+            and None if there are no puzzles"
+         >:: fun _ ->
+           let difficult_puzzle = choose_puzzle "hard" puzzles in
+
+           match difficult_puzzle with
+           | None -> assert_failure "Expected Some but got None"
+           | Some p ->
+               assert_equal "hard" p.difficulty;
+
+               let easy_puzzle = Option.get (choose_puzzle "easy" puzzles) in
+               assert_equal "computer science" easy_puzzle.theme;
+               let no_puzzle = choose_puzzle "medium" puzzles in
+               assert_equal None no_puzzle );
        ]
 
 let _ = run_test_tt_main tests
