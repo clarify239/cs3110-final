@@ -9,8 +9,8 @@ type state = puzzle
    2. Lowercase every ASCII letter. NOTE: internal whitespace is preserved —
    answers like "Apollo 11" need the space between tokens. *)
 let normalize (s : string) : string =
-  let upper = String.uppercase_ascii s in
-  String.trim upper
+  let lower = String.lowercase_ascii s in
+  String.trim lower
 
 (* PURPOSE: split a label on {N} placeholders into alternating literal text and
    slot markers. The ONLY place that understands {N} syntax — the parser and
@@ -88,7 +88,7 @@ let submit (user_input : string) (game_s : state) : bool =
 
   let rec find_match index input =
     if index < len then
-      if (List.nth can_be_solved index).answer = input then (
+      if normalize (List.nth can_be_solved index).answer = corrected_input then (
         (List.nth can_be_solved index).solved <- true;
         true)
       else find_match (index + 1) input
