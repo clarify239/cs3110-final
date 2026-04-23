@@ -97,6 +97,17 @@ let tests =
          ( "testing normalize function" >:: fun _ ->
            let word = "    good   " in
            assert_equal "GOOD" (normalize word) );
+         ( "render strips the outermost brackets from render_node s.root when \
+            the root is unsolved"
+         >:: fun _ ->
+           let full = render_node puzzle.root in
+           let body = String.sub full 1 (String.length full - 2) in
+           assert_equal body (render puzzle) ~printer:(fun s -> s) );
+         ( "render returns the root's answer verbatim when the root is solved"
+         >:: fun _ ->
+           let p = List.hd (load_puzzles "../data/ver2_NESTED_puzzles.json") in
+           p.root.solved <- true;
+           assert_equal "GM makes its 100 millionth car" (render p) );
        ]
 
 let _ = run_test_tt_main tests

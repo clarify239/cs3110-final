@@ -56,13 +56,27 @@ let tokenize_label (label : string) : label_part list =
    n.label and walk the token list, building a body: - Text s -> append s - Slot
    i -> append (render_node (List.nth n.children i)) 3. Wrap the body as "[" ^
    body ^ "]" and return. *)
-let rec render_node (_n : node) : string = failwith "TODO"
+let rec render_node (n : node) : string =
+  if n.solved then n.answer
+  else
+    let part_to_string = function
+      | Text s -> s
+      | Slot i -> render_node (List.nth n.children i)
+    in
+    let body =
+      tokenize_label n.label |> List.map part_to_string |> String.concat ""
+    in
+    "[" ^ body ^ "]"
 
 (* PURPOSE: produce the full puzzle display string shown to the player. STEPS:
    1. Call render_node on state.root. 2. Strip the outermost "[" and "]" — the
    root isn't inside anything, so the final string (e.g. "GM makes its 100
    millionth car") should not be bracketed. *)
-let render (_s : state) : string = failwith "TODO"
+let render (s : state) : string =
+  if s.root.solved then s.root.answer
+  else
+    let full = render_node s.root in
+    String.sub full 1 (String.length full - 2)
 
 (* PURPOSE: collect every node the player can currently attempt — unsolved nodes
    whose children are ALL solved. At start these are the leaves. STEPS: 1. DFS
