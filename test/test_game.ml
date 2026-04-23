@@ -7,7 +7,7 @@ open Cs3110_final.Game
 let puzzles = load_puzzles "../data/ver2_NESTED_puzzles.json"
 
 (** the first puzzle in the list of loaded puzzles*)
-let puzzle = List.hd puzzles
+let puzzle = choose_puzzle "hard" puzzles |> Option.get
 
 (* Pretty-print a label_part list so assert_equal failures are readable. *)
 let string_of_part = function
