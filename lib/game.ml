@@ -8,7 +8,9 @@ type state = puzzle
    "july" all match the same node. STEPS: 1. Trim leading/trailing whitespace.
    2. Lowercase every ASCII letter. NOTE: internal whitespace is preserved —
    answers like "Apollo 11" need the space between tokens. *)
-let normalize (_s : string) : string = failwith "TODO"
+let normalize (s : string) : string =
+  let upper = String.uppercase_ascii s in
+  String.trim upper
 
 (* PURPOSE: split a label on {N} placeholders into alternating literal text and
    slot markers. The ONLY place that understands {N} syntax — the parser and

@@ -94,6 +94,9 @@ let tests =
                assert_equal "computer science" easy_puzzle.theme;
                let no_puzzle = choose_puzzle "medium" puzzles in
                assert_equal None no_puzzle );
+         ( "testing normalize function" >:: fun _ ->
+           let word = "    good   " in
+           assert_equal "GOOD" (normalize word) );
        ]
 
 let _ = run_test_tt_main tests
