@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bracket City</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
- <style>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet" />
+  <style>
     :root {
-      --ink:      #1a1510;
-      --paper:    #f5f0e8;
-      --paper2:   #ede7d9;
-      --gold:     #b8902a;
-      --gold-lt:  #d4a83a;
-      --rule:     #c8b89a;
-      --muted:    #7a6e5f;
-      --bracket:  #b8902a;
-      --correct:  #2d6a4a;
-      --red:      #8b2020;
+      --ink: #1a1510;
+      --paper: #f5f0e8;
+      --paper2: #ede7d9;
+      --gold: #b8902a;
+      --gold-lt: #d4a83a;
+      --rule: #c8b89a;
+      --muted: #7a6e5f;
+      --bracket: #b8902a;
+      --correct: #2d6a4a;
+      --red: #8b2020;
     }
 
     body {
@@ -72,8 +75,14 @@
       top: 50%;
       transform: translateY(-50%);
     }
-    .masthead-logo::before { left: 0; }
-    .masthead-logo::after  { right: 0; }
+
+    .masthead-logo::before {
+      left: 0;
+    }
+
+    .masthead-logo::after {
+      right: 0;
+    }
 
     nav {
       display: flex;
@@ -94,8 +103,16 @@
       border-right: 1px solid var(--rule);
       transition: background 0.15s, color 0.15s;
     }
-    nav a:first-child { border-left: 1px solid var(--rule); }
-    nav a:hover { background: var(--ink); color: var(--paper); }
+
+    nav a:first-child {
+      border-left: 1px solid var(--rule);
+    }
+
+    nav a:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
     nav a.active {
       background: var(--gold);
       color: #fff;
@@ -117,7 +134,7 @@
       display: flex;
       gap: 0.8rem;
       margin-bottom: 1rem;
-      
+
     }
 
     .step-num {
@@ -143,13 +160,13 @@
     }
 
     .panel-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 1.8rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.8rem;
     }
 
     /* ── FOOTER STRIP ── */
@@ -169,77 +186,59 @@
       font-size: 1rem;
       font-weight: 900;
     }
-
-    footer .f-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    footer .f-links a {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-    }
-
-    footer .f-links a:hover { color: var(--ink); }
-  </style> 
+  </style>
 </head>
+
 <body>
 
-<!-- ── MASTHEAD ── -->
-<header class="masthead">
-  <div class="masthead-top">
-    <span class="masthead-date">Daily Puzzle</span>
-</div>
- <div style="text-align:center; padding: 0.5rem 0;">
-    <img src="/assets/logo.png" alt="Team Logo" style="height: 35rem;" />
-  </div>
-</header>
+  <!-- ── MASTHEAD ── -->
+  <header class="masthead">
+    <div style="text-align:center; padding: 0.5rem 0;">
+      <img src="/assets/logo.png" alt="Team Logo" style="height: 15rem;" />
+    </div>
+  </header>
 
-<nav>
-  <a href="#" class="active">Home</a>
-  <a href="game.html">Play</a>
-</nav>
+  <nav>
+    <a href="#" class="active">Home</a>
+    <a href="game.html">Play</a>
+  </nav>
 
-<div class="page-grid">
+  <div class="page-grid">
     <div class="how-to-wrapper">
-    <div class="how-to">
-      <div class="panel-title" style="margin-top:1.5rem">How to Play</div>
+      <div class="how-to">
+        <div class="panel-title" style="margin-top:1.5rem">How to Play</div>
 
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">You'll see a sentence with <strong>[bracketed clues]</strong> inside it — sometimes nested inside one another.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">Always solve the <strong>innermost</strong> bracket first. It has no brackets inside it.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">Type your answer and press <strong>Enter</strong>. A correct answer reveals the next layer.</div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body">Keep going until the full <strong> sentence</strong> is revealed. </div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">You'll see a sentence with <strong>[bracketed clues]</strong> inside it — sometimes
+            nested inside one another.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">Always solve the <strong>innermost</strong> bracket first. It has no brackets inside
+            it.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">Type your answer and press <strong>Enter</strong>. A correct answer reveals the next
+            layer.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">Keep going until the full <strong> sentence</strong> is revealed. </div>
+        </div>
       </div>
     </div>
-    </div>
 
 
-</div>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="f-logo">[Bracket City]</div>
-  <div class="f-links">
-    <a href="#">About</a>
-    <a href="index.html">Play</a>
   </div>
-  <div class="f-logo">Built by Team 67</div>
-</footer>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="f-logo">[Bracket City]</div>
+    <div class="f-logo">Built by Team 67</div>
+  </footer>
 
 </body>
+
 </html>
