@@ -25,6 +25,7 @@ let load_puzzles filepath =
 (*returns puzzle Option with random puzzle of given difficulty and None if
   difficulty doesn't exist*)
 let choose_puzzle difficulty puzzles =
+  Random.self_init ();
   let filtered = List.filter (fun p -> difficulty = p.difficulty) puzzles in
   match filtered with
   | [] -> None
