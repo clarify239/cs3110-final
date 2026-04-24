@@ -1,3 +1,10 @@
 # Installation instructions to run our program: 
-# Run opam install dream on terminal 
-# Rune opam install yojson
+
+# Library Installation
+Run the following terminal command to install required libraries:
+
+opam install dream yojson
+
+# Run the program:
+dune exec bin main.exe
+

@@ -1,4 +1,4 @@
 (library
  (name cs3110_final)
  (modules parser types game)
- (libraries yojson ANSITerminal))
+ (libraries yojson))
