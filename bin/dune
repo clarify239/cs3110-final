@@ -1,3 +1,3 @@
-(executable
- (name main)
+(executables
+ (names main main_logic)
  (libraries dream yojson cs3110_final))
