@@ -178,12 +178,28 @@ let handle_hint (ws : Dream.websocket) (state : Types.puzzle ref)
   match Game.hint_first_letter chip_body !state with
   | None -> Lwt.return_unit
   | Some letter ->
-      session := Score.apply_hint !session;
+      session := Score.apply_hint_of_kind !session Score.First_letter;
       send_to ws ("HINT|" ^ letter)
+
+let handle_hint_length (ws : Dream.websocket) (state : Types.puzzle ref)
+    (session : Score.session ref) (chip_body : string) : unit Lwt.t =
+  match Game.hint_answer_length chip_body !state with
+  | None -> Lwt.return_unit
+  | Some n ->
+      session := Score.apply_hint_of_kind !session Score.Length;
+      send_to ws (Printf.sprintf "HINT_LEN|%d" n)
+
+let handle_hint_words (ws : Dream.websocket) (state : Types.puzzle ref)
+    (session : Score.session ref) (chip_body : string) : unit Lwt.t =
+  match Game.hint_word_count chip_body !state with
+  | None -> Lwt.return_unit
+  | Some n ->
+      session := Score.apply_hint_of_kind !session Score.Word_count;
+      send_to ws (Printf.sprintf "HINT_WORDS|%d" n)
 
 let handle_reveal (ws : Dream.websocket) (state : Types.puzzle ref) (session : Score.session ref) (start_time : float) (chip_body : string) : unit Lwt.t =
   if Game.reveal_by_body chip_body !state then begin
-    session := Score.apply_hint !session;
+    session := Score.apply_hint_of_kind !session Score.Reveal;
     let* () = send_bracket ws state in
     let* () = send_progress ws state in
 
@@ -205,6 +221,38 @@ let handle_reveal (ws : Dream.websocket) (state : Types.puzzle ref) (session : S
         else Lwt.return_unit
   end
   else Lwt.return_unit
+
+(* load_next_puzzle: pull the next puzzle from the per-session picker and
+   replace the current state. Resets the per-puzzle timer. If the picker is
+   empty, sends DONE| so the frontend can show an end-of-session screen. *)
+let load_next_puzzle (ws : Dream.websocket) (picker : Parser.picker)
+    (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
+  match Parser.choose_puzzle picker default_difficulty with
+  | None -> send_to ws "DONE|No more puzzles available"
+  | Some new_puzzle ->
+      state := new_puzzle;
+      start_time := Unix.gettimeofday ();
+      let* () = send_bracket ws state in
+      let* () = send_progress ws state in
+      send_timer ws !start_time
+
+let handle_skip (ws : Dream.websocket) (picker : Parser.picker)
+    (state : Types.puzzle ref) (session : Score.session ref)
+    (start_time : float ref) : unit Lwt.t =
+  session := Score.apply_skip !session;
+  load_next_puzzle ws picker state start_time
+
+let handle_next (ws : Dream.websocket) (picker : Parser.picker)
+    (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
+  load_next_puzzle ws picker state start_time
+
+let starts_with (prefix : string) (s : string) : bool =
+  let n = String.length prefix in
+  String.length s >= n && String.sub s 0 n = prefix
+
+let strip_prefix (prefix : string) (s : string) : string =
+  let n = String.length prefix in
+  String.sub s n (String.length s - n)
 
 let ws_handler (req : Dream.request) : Dream.response Lwt.t =
   ignore req;
@@ -228,12 +276,13 @@ let ws_handler (req : Dream.request) : Dream.response Lwt.t =
           | Some puzzle ->
               let state = ref puzzle in
               let session = ref (Score.make_session ()) in
-              let start_time = Unix.gettimeofday () in
+              (* start_time is a ref so SKIP/NEXT can reset it per puzzle. *)
+              let start_time = ref (Unix.gettimeofday ()) in
               (* Push the initial render so the player sees the puzzle on
                  load. *)
               let* () = send_bracket ws state in
               let* () = send_progress ws state in
-              let* () = send_timer ws start_time in
+              let* () = send_timer ws !start_time in
 
               (* STUB: also push the initial exposed set once frontend handles it.
                  Uncomment the line below when _send_exposed is activated. *)
@@ -248,16 +297,23 @@ let ws_handler (req : Dream.request) : Dream.response Lwt.t =
                     Lwt.return_unit
                 | Some raw ->
                     let* () =
-                      if String.length raw >= 5 && String.sub raw 0 5 = "HINT|"
-                      then
+                      if starts_with "HINT_LEN|" raw then
+                        handle_hint_length ws state session
+                          (strip_prefix "HINT_LEN|" raw)
+                      else if starts_with "HINT_WORDS|" raw then
+                        handle_hint_words ws state session
+                          (strip_prefix "HINT_WORDS|" raw)
+                      else if starts_with "HINT|" raw then
                         handle_hint ws state session
-                          (String.sub raw 5 (String.length raw - 5))
-                      else if
-                        String.length raw >= 7 && String.sub raw 0 7 = "REVEAL|"
-                      then
-                        handle_reveal ws state session start_time
-                          (String.sub raw 7 (String.length raw - 7))
-                      else handle_guess ws state session start_time raw
+                          (strip_prefix "HINT|" raw)
+                      else if starts_with "REVEAL|" raw then
+                        handle_reveal ws state session !start_time
+                          (strip_prefix "REVEAL|" raw)
+                      else if starts_with "SKIP|" raw then
+                        handle_skip ws picker state session start_time
+                      else if starts_with "NEXT|" raw then
+                        handle_next ws picker state start_time
+                      else handle_guess ws state session !start_time raw
                     in
                     keep_open ()
               in

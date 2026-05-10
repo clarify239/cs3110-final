@@ -13,11 +13,21 @@ type session = {
   streak : int;  (** current consecutive-correct streak *)
   max_streak : int;  (** highest streak reached this session *)
   pending_penalty : int;
-      (** unpaid wrong/hint penalty accumulated when the score floor (0)
+      (** unpaid wrong/hint/skip penalty accumulated when the score floor (0)
           would have absorbed a deduction. The next correct guess pays this
           off before banking points, so penalties on a zero score still cost
           the player against future earnings. *)
+  skip_count : int;
+      (** number of puzzles the player skipped (surrendered) this session. *)
 }
+
+(** Variants of hint the player can request. Each kind has its own price; see
+    [hint_cost]. [Reveal] solves the chip outright and is the most expensive. *)
+type hint_kind =
+  | First_letter
+  | Length
+  | Word_count
+  | Reveal
 
 (** A read-only end-of-game snapshot produced by [make_summary]. *)
 type summary = {
@@ -31,8 +41,17 @@ type summary = {
 (** Points deducted from the score per wrong guess. *)
 val wrong_penalty : int
 
-(** Points deducted from the score per hint used. *)
+(** Points deducted from the score per [First_letter] hint used. Equal to
+    [hint_cost First_letter]; kept as a separate value so existing callers
+    that don't care about hint variety can ignore [hint_kind]. *)
 val hint_penalty : int
+
+(** Points deducted from the score per skipped puzzle. *)
+val skip_penalty : int
+
+(** [hint_cost kind] is the per-hint cost for [kind]. Cheaper hints reveal
+    less; [Reveal] solves the chip outright and is the most expensive. *)
+val hint_cost : hint_kind -> int
 
 (** [make_session ()] returns a fresh session with all counters set to zero. *)
 val make_session : unit -> session
@@ -65,9 +84,21 @@ val apply_correct_from_puzzle : session -> Types.puzzle -> Types.node -> session
     (floored at 0) and resets the current streak to 0. [max_streak] unchanged. *)
 val apply_wrong : session -> session
 
-(** [apply_hint s] records a hint usage. Deducts [hint_penalty] points
-    (floored at 0). The current streak is NOT reset by a hint. *)
+(** [apply_hint s] records a [First_letter] hint. Equivalent to
+    [apply_hint_of_kind s First_letter]. The current streak is NOT reset by
+    a hint. *)
 val apply_hint : session -> session
+
+(** [apply_hint_of_kind s kind] records a hint of the given [kind], deducting
+    [hint_cost kind] (floored at 0; any unpaid amount is rolled into
+    [pending_penalty]). The current streak is NOT reset. *)
+val apply_hint_of_kind : session -> hint_kind -> session
+
+(** [apply_skip s] records that the player skipped (surrendered) the current
+    puzzle. Deducts [skip_penalty] (floored at 0; unpaid amount goes into
+    [pending_penalty]), resets the current streak to 0, and increments
+    [skip_count]. [max_streak] is unchanged. *)
+val apply_skip : session -> session
 
 (** [time_bonus elapsed_seconds] returns bonus points for fast completion:
     50 pts for under 60 s, 30 for under 120 s, 15 for under 180 s, 0 otherwise.
@@ -82,8 +113,9 @@ val apply_time_bonus : session -> int -> session
     Returns [0.0] when no guesses have been made. *)
 val accuracy : session -> float
 
-(** [is_perfect s] is [true] iff no wrong guesses and no hints were used.
-    A fresh session with zero guesses is considered perfect. *)
+(** [is_perfect s] is [true] iff no wrong guesses, no hints, and no skips
+    have been recorded. A fresh session with zero guesses is considered
+    perfect. *)
 val is_perfect : session -> bool
 
 (** [grade s] maps [s] to a letter grade. "S" for a perfect session; then

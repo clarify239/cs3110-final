@@ -8,7 +8,14 @@ type session = {
   streak : int;
   max_streak : int;
   pending_penalty : int;
+  skip_count : int;
 }
+
+type hint_kind =
+  | First_letter
+  | Length
+  | Word_count
+  | Reveal
 
 type summary = {
   final_score : int;
@@ -20,6 +27,13 @@ type summary = {
 
 let wrong_penalty = 5
 let hint_penalty = 3
+let skip_penalty = 10
+
+let hint_cost = function
+  | First_letter -> hint_penalty
+  | Length -> 1
+  | Word_count -> 1
+  | Reveal -> 8
 
 let make_session () : session =
   {
@@ -30,6 +44,7 @@ let make_session () : session =
     streak = 0;
     max_streak = 0;
     pending_penalty = 0;
+    skip_count = 0;
   }
 
 let base_points (difficulty : string) : int =
@@ -62,8 +77,8 @@ let apply_correct (s : session) (difficulty : string) (depth : int) : session =
   let new_streak = s.streak + 1 in
   let bonus = streak_bonus new_streak in
   let gross = pts + bonus in
-  (* Pay any pending penalty (from earlier wrongs/hints that hit the 0-floor)
-     before banking the remaining points. *)
+  (* Pay any pending penalty (from earlier wrongs/hints/skips that hit the
+     0-floor) before banking the remaining points. *)
   let pay = min gross s.pending_penalty in
   let net = gross - pay in
   {
@@ -74,6 +89,7 @@ let apply_correct (s : session) (difficulty : string) (depth : int) : session =
     streak = new_streak;
     max_streak = max s.max_streak new_streak;
     pending_penalty = s.pending_penalty - pay;
+    skip_count = s.skip_count;
   }
 
 let apply_correct_from_puzzle (s : session) (p : puzzle) (n : node) : session =
@@ -90,10 +106,12 @@ let apply_wrong (s : session) : session =
     streak = 0;
     max_streak = s.max_streak;
     pending_penalty = s.pending_penalty + (wrong_penalty - pay);
+    skip_count = s.skip_count;
   }
 
-let apply_hint (s : session) : session =
-  let pay = min s.score hint_penalty in
+let apply_hint_of_kind (s : session) (kind : hint_kind) : session =
+  let cost = hint_cost kind in
+  let pay = min s.score cost in
   {
     score = s.score - pay;
     correct_count = s.correct_count;
@@ -101,7 +119,23 @@ let apply_hint (s : session) : session =
     hint_count = s.hint_count + 1;
     streak = s.streak;
     max_streak = s.max_streak;
-    pending_penalty = s.pending_penalty + (hint_penalty - pay);
+    pending_penalty = s.pending_penalty + (cost - pay);
+    skip_count = s.skip_count;
+  }
+
+let apply_hint (s : session) : session = apply_hint_of_kind s First_letter
+
+let apply_skip (s : session) : session =
+  let pay = min s.score skip_penalty in
+  {
+    score = s.score - pay;
+    correct_count = s.correct_count;
+    wrong_count = s.wrong_count;
+    hint_count = s.hint_count;
+    streak = 0;
+    max_streak = s.max_streak;
+    pending_penalty = s.pending_penalty + (skip_penalty - pay);
+    skip_count = s.skip_count + 1;
   }
 
 let time_bonus (elapsed_seconds : int) : int =
@@ -120,7 +154,7 @@ let accuracy (s : session) : float =
   else float_of_int s.correct_count /. float_of_int total
 
 let is_perfect (s : session) : bool =
-  s.wrong_count = 0 && s.hint_count = 0
+  s.wrong_count = 0 && s.hint_count = 0 && s.skip_count = 0
 
 let grade (s : session) : string =
   if is_perfect s then "S"
