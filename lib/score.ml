@@ -96,6 +96,41 @@ let apply_correct_from_puzzle (s : session) (p : puzzle) (n : node) : session =
   let depth = Option.value ~default:0 (node_depth p.root n) in
   apply_correct s p.difficulty depth
 
+let combo_multiplier (streak : int) : float =
+  if streak >= 10 then 2.0
+  else if streak >= 6 then 1.5
+  else if streak >= 3 then 1.25
+  else 1.0
+
+let difficulty_multiplier (difficulty : string) : float =
+  match difficulty with
+  | "hard" -> 1.5
+  | "medium" -> 1.2
+  | "easy" -> 1.0
+  | _ -> 1.0
+
+let apply_correct_combo (s : session) (difficulty : string) (depth : int) :
+    session =
+  let base = score_for_node difficulty depth in
+  let new_streak = s.streak + 1 in
+  let mult = combo_multiplier new_streak *. difficulty_multiplier difficulty in
+  let gross = int_of_float (float_of_int base *. mult) in
+  let total = gross + streak_bonus new_streak in
+  let pay = min total s.pending_penalty in
+  {
+    s with
+    score = s.score + (total - pay);
+    correct_count = s.correct_count + 1;
+    streak = new_streak;
+    max_streak = max s.max_streak new_streak;
+    pending_penalty = s.pending_penalty - pay;
+  }
+
+let apply_correct_combo_from_puzzle (s : session) (p : puzzle) (n : node) :
+    session =
+  let depth = Option.value ~default:0 (node_depth p.root n) in
+  apply_correct_combo s p.difficulty depth
+
 let apply_wrong (s : session) : session =
   let pay = min s.score wrong_penalty in
   {

@@ -80,6 +80,28 @@ val apply_correct : session -> string -> int -> session
     found in the tree. *)
 val apply_correct_from_puzzle : session -> Types.puzzle -> Types.node -> session
 
+(** [combo_multiplier streak] is the score multiplier applied for a streak of
+    [streak] consecutive-correct guesses: 1.0 below 3, 1.25 at 3+, 1.5 at 6+,
+    2.0 at 10+. *)
+val combo_multiplier : int -> float
+
+(** [difficulty_multiplier d] is the score multiplier for puzzles of
+    difficulty [d]: 1.0 for "easy", 1.2 for "medium", 1.5 for "hard". Unknown
+    strings default to the "easy" multiplier. *)
+val difficulty_multiplier : string -> float
+
+(** [apply_correct_combo s difficulty depth] is like [apply_correct] but the
+    base node score is multiplied by [combo_multiplier] and
+    [difficulty_multiplier] before the streak bonus is added. Pending
+    penalties are paid first. *)
+val apply_correct_combo : session -> string -> int -> session
+
+(** [apply_correct_combo_from_puzzle s p n] is [apply_correct_combo] with
+    depth computed automatically from puzzle [p]'s tree. Defaults to depth 0
+    if [n] is not found. *)
+val apply_correct_combo_from_puzzle :
+  session -> Types.puzzle -> Types.node -> session
+
 (** [apply_wrong s] records a wrong guess. Deducts [wrong_penalty] points
     (floored at 0) and resets the current streak to 0. [max_streak] unchanged. *)
 val apply_wrong : session -> session

@@ -133,7 +133,7 @@ let handle_guess (ws : Dream.websocket) (state : Types.puzzle ref)
   if correct then begin
     (session :=
        match maybe_node with
-       | Some n -> Score.apply_correct_from_puzzle !session !state n
+       | Some n -> Score.apply_correct_combo_from_puzzle !session !state n
        | None -> Score.apply_correct !session !state.difficulty 0);
     let* () = send_bracket ws state in
     let* () = send_progress ws state in
