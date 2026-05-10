@@ -1,0 +1,776 @@
+* f56de2e 2026-05-09 23:44 EDT tested bisect| 
+|  bin/dune  |  4 +++-
+|  lib/dune  |  4 +++-
+|  test/dune | 10 +++-------
+|  3 files changed, 9 insertions(+), 9 deletions(-)
+
+* 1895631 2026-05-09 23:41 EDT Update AUTHORS.md| 
+|  AUTHORS.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* 81f9844 2026-05-09 23:39 EDT proper comments added| 
+|  bin/main.ml | 19 ++++++++++++++-----
+|  1 file changed, 14 insertions(+), 5 deletions(-)
+
+* 9cccc81 2026-05-09 23:18 EDT added combo_multipier| 
+|  bin/main_logic.ml |  2 +-
+|  lib/score.ml      | 35 +++++++++++++++++++++++++++++++++++
+|  lib/score.mli     | 22 ++++++++++++++++++++++
+|  3 files changed, 58 insertions(+), 1 deletion(-)
+
+*   56cd9fc 2026-05-09 23:08 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\  
+| * cb6db37 2026-05-09 23:03 EDT Fix typo in project title in README| | 
+| |  README.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+
+| * cc731ca 2026-05-09 23:03 EDT Update README.md| | 
+| |  README.md | 4 +---
+| |  1 file changed, 1 insertion(+), 3 deletions(-)
+
+| * d6ae8e7 2026-05-09 23:03 EDT Update project description with technology used| | 
+| |  README.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+
+| * 375f173 2026-05-09 23:02 EDT Update README with project details| | 
+| |  README.md | 3 +++
+| |  1 file changed, 3 insertions(+)
+
+* | f36b962 2026-05-09 23:08 EDT fixed score and main
+|/  |   
+|    bin/main_logic.ml | 82 +++++++++++++++++++++++++++++++++++++++++++--------
+|    lib/score.ml      | 46 +++++++++++++++++++++++++----
+|    lib/score.mli     | 44 +++++++++++++++++++++++----
+|    3 files changed, 147 insertions(+), 25 deletions(-)
+
+* 1d6c90a 2026-05-09 22:44 EDT fixed 2 bugs - hashtable implementation and apply hint thing)| 
+|  bin/main_logic.ml |  6 ++++--
+|  lib/parser.ml     | 23 ++++++++++++++---------
+|  lib/parser.mli    | 14 ++++++++++++--
+|  lib/score.ml      | 18 +++++++++++++++---
+|  lib/score.mli     |  5 +++++
+|  test/test_game.ml | 21 ++++++++++++---------
+|  6 files changed, 62 insertions(+), 25 deletions(-)
+
+*   4b1c80e 2026-05-09 22:32 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\  
+| * 2ff65bc 2026-05-09 22:21 EDT Updated AUTHORS.md file| | 
+| |  AUTHORS.md | 17 +++++++++--------
+| |  1 file changed, 9 insertions(+), 8 deletions(-)
+
+| * fe5150c 2026-05-09 22:20 EDT Refactor AUTHORS.md to enhance clarity and organization of GenAI usage details| | 
+| |  AUTHORS.md | 7 +++----
+| |  1 file changed, 3 insertions(+), 4 deletions(-)
+
+* | 5e8eff1 2026-05-09 22:17 EDT Merge pull request #23 from clarify239/anshu-branch
+|\| 
+| * 499f8b1 2026-05-09 22:16 EDT Refactor main_logic.ml to improve code clarity and organization
+|/  |   
+|    bin/main_logic.ml | 283 ++++++++++++++------------------------------------
+|    1 file changed, 79 insertions(+), 204 deletions(-)
+
+* 10cf255 2026-05-09 21:41 EDT Fixed so randomized puzzles integerates with difficulty| 
+|  bin/main_logic.ml | 29 +++++---------------
+|  lib/parser.ml     |  8 +++---
+|  public/index.html | 76 ++++++++++++++++++++++++++++++-----------------------
+|  3 files changed, 54 insertions(+), 59 deletions(-)
+
+* 513a6c9 2026-05-09 21:06 EDT updated authors| 
+|  AUTHORS.md | 5 ++++-
+|  1 file changed, 4 insertions(+), 1 deletion(-)
+
+* 34adc24 2026-05-09 20:33 EDT added a hashtable so the puzzles don't repeat| 
+|  bin/main_logic.ml | 69 +++++++++++++++++++++++++++++++++++++++++++----------
+|  lib/parser.ml     | 52 +++++++++++++++++++++++++++++++---------
+|  2 files changed, 97 insertions(+), 24 deletions(-)
+
+* f579ad6 2026-05-09 20:09 EDT Fixed json puzzles| 
+|  data/ver2_NESTED_puzzles.json | 225 +++++++++++++++-------------------------
+|  1 file changed, 84 insertions(+), 141 deletions(-)
+
+* 852ea39 2026-05-09 19:50 EDT fixed formatting for final stats| 
+|  public/game.html | 13 ++++++++-----
+|  1 file changed, 8 insertions(+), 5 deletions(-)
+
+*   4f90886 2026-05-09 19:44 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\  
+| * fbef626 2026-05-09 19:37 EDT same problem| | 
+| |  public/game-scripts.js | 39 ++++++++++++++++++++++++++++-----------
+| |  public/game.html       | 29 +++++++++++++++++++++++++----
+| |  2 files changed, 53 insertions(+), 15 deletions(-)
+
+* | e32e640 2026-05-09 19:38 EDT display final answer in victory stats
+|/  |   
+|    public/game-scripts.js | 21 +++++++++++++++------
+|    public/game.html       |  1 +
+|    2 files changed, 16 insertions(+), 6 deletions(-)
+
+* dce2788 2026-05-09 19:29 EDT reimplemented diff| 
+|  bin/main_logic.ml | 38 --------------------------------------
+|  1 file changed, 38 deletions(-)
+
+*   64b2ed7 2026-05-09 19:23 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\  
+| * 8dc96d1 2026-05-09 19:12 EDT fixed front end again with properly done next puzzle| | 
+| |  bin/main_logic.ml      | 19 +++------
+| |  lib/game.ml            | 99 ----------------------------------------------
+| |  lib/parser.ml          |  3 --
+| |  lib/score.ml           | 51 ------------------------
+| |  public/game-scripts.js |  5 ++-
+| |  public/index.html      | 25 +++++++++++-
+| |  6 files changed, 33 insertions(+), 169 deletions(-)
+
+* | 544375c 2026-05-09 19:22 EDT added additional puzzle an changed final stat output to be more cohesive
+|/  |   
+|    data/ver2_NESTED_puzzles.json | 41 ++++++++++++++++++++++++++++++++++++++-
+|    public/game-scripts.js        |  2 +-
+|    2 files changed, 41 insertions(+), 2 deletions(-)
+
+*   3248e93 2026-05-09 18:56 EDT Merge branch 'scoring'
+|\  
+| * 8f093d2 2026-05-09 18:48 EDT remove grade since frontend is a bit too stat heavy| | 
+| |  public/game-scripts.js | 4 ++--
+| |  1 file changed, 2 insertions(+), 2 deletions(-)
+
+| * 6a329e4 2026-05-09 18:44 EDT whoops! forgot to add open properly!| | 
+| |  bin/main_logic.ml | 4 +++-
+| |  1 file changed, 3 insertions(+), 1 deletion(-)
+
+| * e918719 2026-05-09 18:26 EDT scoring pushed| | 
+| |  bin/main_logic.ml      |  66 ++--
+| |  lib/dune               |   2 +-
+| |  lib/game.ml            |  29 ++
+| |  lib/game.mli           |  12 +
+| |  lib/score.ml           | 180 +++++++++++
+| |  lib/score.mli          |  90 ++++++
+| |  public/game-scripts.js |   7 +-
+| |  test/dune              |   6 +
+| |  test/test_score.ml     | 761 +++++++++++++++++++++++++++++++++++++++++++++
+| |  9 files changed, 1118 insertions(+), 35 deletions(-)
+
+* |   44f3176 2026-05-09 18:42 EDT Merge pull request #22 from clarify239/victorystats
+|\ \  
+| |/  
+|/|   
+| * 1672de5 2026-05-09 18:41 EDT Added a stopwatch and displays final time| | 
+| |  bin/main_logic.ml      | 41 +++++++++++++++++++++++++++----------
+| |  public/game-scripts.js | 51 ++++++++++++++++++++++++++++++++++++++++------
+| |  public/game-styles.css |  4 ++++
+| |  public/game.html       |  6 +++++-
+| |  4 files changed, 84 insertions(+), 18 deletions(-)
+
+* | a9f18d5 2026-05-08 15:48 EDT Fix formatting of group members list in README| | 
+| |  README.md | 2 +-
+| |  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* | e3ce8a8 2026-05-08 15:47 EDT Fix formatting of group members list in README| | 
+| |  README.md | 10 +++++-----
+| |  1 file changed, 5 insertions(+), 5 deletions(-)
+
+* |   009adfd 2026-05-08 12:44 EDT Merge pull request #21 from clarify239/anshu-branch
+|\ \  
+| * | a665653 2026-05-08 12:42 EDT renamed buttons for improved clarity in victory overlay
+|/ /  | |   
+| |    public/game.html | 2 +-
+| |    1 file changed, 1 insertion(+), 1 deletion(-)
+
+* | 6e42cd9 2026-05-08 12:36 EDT Merge pull request #20 from clarify239/victorystats
+|\| 
+| * f023dd5 2026-05-08 12:35 EDT fully implemented hints (first click reveals one letter, second click eveals the entire puzzle) and addedvictory stats displaying total guesses,  hints used, and user accuracy
+|/  |   
+|    bin/main_logic.ml      | 91 ++++++++++++++++++++++++++++++++++++++++------
+|    lib/game.ml            | 54 +++++++++++++++++++++++----
+|    lib/game.mli           | 37 ++++++++++++-------
+|    public/game-scripts.js | 55 +++++++++++++++++++++-------
+|    public/game.html       |  1 +
+|    5 files changed, 192 insertions(+), 46 deletions(-)
+
+* b3174c3 2026-05-07 22:29 EDT fixed test cases| 
+|  data/ver2_NESTED_puzzles.json |  2 +-
+|  test/test_game.ml             | 10 ++++------
+|  2 files changed, 5 insertions(+), 7 deletions(-)
+
+* e358f30 2026-05-07 22:18 EDT test cases + hint chekcing| 
+|  bin/main_logic.ml             |  17 +-
+|  data/ver2_NESTED_puzzles.json |   2 +-
+|  lib/game.ml                   |  17 ++
+|  lib/game.mli                  |   8 +
+|  public/game-scripts.js        |  23 ++-
+|  public/game-styles.css        |   5 +
+|  test/test_game.ml             | 357 ++++++++++++++++++++++++++++++++++++++++
+|  7 files changed, 425 insertions(+), 4 deletions(-)
+
+* 7563cb2 2026-05-07 22:07 EDT added more data (game rounds)| 
+|  data/ver2_NESTED_puzzles.json | 214 +++++++++++++++++++++++++++++++++++++++-
+|  1 file changed, 213 insertions(+), 1 deletion(-)
+
+* da938a2 2026-05-07 22:00 EDT next puzzle logic done| 
+|  public/game-scripts.js | 3 +--
+|  1 file changed, 1 insertion(+), 2 deletions(-)
+
+* 5c50d1d 2026-05-07 21:42 EDT fixed progress bar error| 
+|  bin/main_logic.ml | 2 ++
+|  1 file changed, 2 insertions(+)
+
+* 6852ecb 2026-05-07 21:39 EDT updated install| 
+|  INSTALL.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* b0414b4 2026-05-07 21:09 EDT frontend done for progress bar| 
+|  bin/main_logic.ml      |  7 +++++++
+|  public/game-scripts.js | 10 ++++++++++
+|  public/game-styles.css | 26 +++++++++++++++++++++++++-
+|  public/game.html       |  7 +++++++
+|  4 files changed, 49 insertions(+), 1 deletion(-)
+
+* afba0b2 2026-05-07 21:07 EDT backend game logic for progress bar| 
+|  lib/game.ml       | 15 +++++++++++++
+|  lib/game.mli      | 15 +++++++++++++
+|  test/test_game.ml | 65 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+|  3 files changed, 95 insertions(+)
+
+* 097d949 2026-05-07 21:02 EDT edited authors to inlude bracket city| 
+|  AUTHORS.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* 447b196 2026-05-07 20:53 EDT changed render spec| 
+|  lib/game.ml | 12 ++++++++----
+|  1 file changed, 8 insertions(+), 4 deletions(-)
+
+* b263327 2026-05-07 20:50 EDT fixed bug where one would have to retype final message to get victory screen| 
+|  bin/main_logic.ml | 10 +++++++++-
+|  1 file changed, 9 insertions(+), 1 deletion(-)
+
+* f935344 2026-05-07 20:43 EDT fixed highlighting so only guessable brackets are highlighted| 
+|  bin/main_logic.ml      | 235 ++++++++++++++++++++---------------------------
+|  lib/game.ml            |  14 +--
+|  public/game-scripts.js |  11 ++-
+|  public/game.html       |  42 ++++++---
+|  4 files changed, 146 insertions(+), 156 deletions(-)
+
+*   7d3e8ac 2026-05-07 20:01 EDT Merge pull request #19 from clarify239/anshu-branch
+|\  
+| * ef6ba10 2026-05-07 19:30 EDT implement guess handling and improve WebSocket message processing| | 
+| |  bin/main_logic.ml      | 18 ++++++++++++++++++
+| |  public/game-scripts.js |  4 ++--
+| |  2 files changed, 20 insertions(+), 2 deletions(-)
+
+| * a6b7813 2026-05-07 14:49 EDT updating victory overlay structure| | 
+| |  public/game-scripts.js |  5 +++++
+| |  public/game.html       | 43 +++++++++++++++++++++----------------------
+| |  2 files changed, 26 insertions(+), 22 deletions(-)
+
+| * 1da82da 2026-05-07 14:36 EDT refactor WebSocket handling and simplify showVictory function| | 
+| |  public/game-scripts.js | 37 +++++++++++++++----------------------
+| |  1 file changed, 15 insertions(+), 22 deletions(-)
+
+| * 58ee0cf 2026-05-07 14:29 EDT add navigation bar to game interface with styling| | 
+| |  public/game-styles.css | 24 ++++++++++++++++++++++++
+| |  public/game.html       |  6 +++++-
+| |  2 files changed, 29 insertions(+), 1 deletion(-)
+
+| * f51cc20 2026-05-06 00:03 EDT implements the main logic of the Bracket City puzzle game, including WebSocket communication and victory handling. Also includes updates to the HTML structure and styling for the game interface.| | 
+| |  bin/main_logic.ml      |  19 +-----
+| |  public/game-scripts.js |  45 ++++++++++++
+| |  public/game.html       |   7 +-
+| |  public/index.html      | 166 ---------------------------------------------
+| |  4 files changed, 52 insertions(+), 185 deletions(-)
+
+| *   9620e2c 2026-05-05 23:36 EDT Merge origin/main into anshu-branch
+| |\  
+| * | d0ddeca 2026-04-22 14:24 EDT made style changes for simplicity| | | 
+| | |  public/game-styles.css |   2 +-
+| | |  public/index.html      | 163 +++++--------------------------------------
+| | |  2 files changed, 20 insertions(+), 145 deletions(-)
+
+* | | 66ae3fa 2026-05-07 19:52 EDT Update INSTALL.md
+| |/  
+|/|   | |   
+| |    INSTALL.md | 2 +-
+| |    1 file changed, 1 insertion(+), 1 deletion(-)
+
+* |   165748e 2026-05-04 00:10 EDT Merge pull request #18 from wangamber8-collab/Amber_branch
+|\ \  
+| * | 6ea9e4e 2026-05-04 00:04 EDT Puzzle keeps track if solved or not. puzzle only chosen if nonot solved
+|/ /  | |   
+| |    lib/game.ml       |   5 ++-
+| |    lib/parser.ml     |   7 +++-
+| |    lib/types.ml      |   4 +-
+| |    test/test_game.ml | 108 +++++++++++++++++++++++++++++++++++++++++++++---
+| |    4 files changed, 116 insertions(+), 8 deletions(-)
+
+* | dc310d2 2026-04-28 16:47 EDT game loop comments in| | 
+| |  bin/dune          |   4 +-
+| |  bin/main_logic.ml | 335 ++++++++++++++++++++++++++++++++++++++++++++++++++
+| |  2 files changed, 337 insertions(+), 2 deletions(-)
+
+* |   5787c73 2026-04-28 09:56 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\ \  
+| * \   1bc5955 2026-04-24 13:41 EDT fixed test cases
+| |\ \  
+| | * \   2c9bead 2026-04-24 13:40 EDT Merge branch 'Amber_branch' of https://github.com/wangamber8-collab/cs3110-final into Amber_branch
+| | |\ \  
+| | * | | 32a95de 2026-04-24 13:38 EDT Fixed test cases| | | | | 
+| | | | |  test/test_game.ml | 11 +++++++----
+| | | | |  1 file changed, 7 insertions(+), 4 deletions(-)
+
+| * | | |   7b4db23 2026-04-24 00:44 EDT Merge pull request #16 from wangamber8-collab/Amber_branch
+| |\ \ \ \  
+| | | |/ /  
+| | |/| |   
+| | * | |   5394766 2026-04-24 00:42 EDT Merge branch 'clarify239:main' into Amber_branch
+| | |\ \ \  
+| | |/ / /  
+| |/| / /   
+| | |/ /    
+| * | |   015ac64 2026-04-24 00:19 EDT Merge pull request #15 from wangamber8-collab/Amber_branch
+| |\ \ \  
+| | | * | 668c588 2026-04-24 00:41 EDT Created INSTALL.md with instructions
+| | |/ /  | | | |   
+| | | |    INSTALL.md | 11 +++++++++--
+| | | |    lib/dune   |  2 +-
+| | | |    2 files changed, 10 insertions(+), 3 deletions(-)
+
+| | * / d90ee6c 2026-04-24 00:17 EDT Added data abstraction documentation as detailed in guidelines
+| |/ /  | | |   
+| | |    lib/parser.ml |  1 +
+| | |    lib/types.ml  | 29 +++++++++++++++++++++++++++--
+| | |    2 files changed, 28 insertions(+), 2 deletions(-)
+
+* / / eb8d4a9 2026-04-28 09:56 EDT game logic done (exposed finished with test cases)
+|/ /  | |   
+| |    lib/game.ml       |  8 +++++++-
+| |    test/test_game.ml | 16 ++++++++++++++++
+| |    2 files changed, 23 insertions(+), 1 deletion(-)
+
+* | 794df5f 2026-04-23 13:59 EDT Implemented render_node and wrapper function render with test cases. Also removed public/dune because ocamlterminal was removed.| | 
+| |  lib/game.ml       | 18 ++++++++++++++++--
+| |  public/dune       |  3 ---
+| |  test/test_game.ml | 11 +++++++++++
+| |  3 files changed, 27 insertions(+), 5 deletions(-)
+
+* |   135a8cb 2026-04-22 23:11 EDT Merge pull request #14 from clarify239/basicHTML
+|\ \  
+| * | 254b10a 2026-04-22 23:10 EDT Changed logo size| | | 
+| | |  public/index.html | 2 +-
+| | |  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* | | 1e9620c 2026-04-22 23:03 EDT Merge pull request #13 from clarify239/basicHTML
+|\| | 
+| * |   7b9eeef 2026-04-22 23:03 EDT Merge branch 'main' into basicHTML
+| |\ \  
+| |/ /  
+|/| |   
+* | | 9c111bb 2026-04-22 22:42 EDT fixed normalized with comments| | | 
+| | |  lib/game.ml  | 6 +++---
+| | |  lib/game.mli | 4 ++--
+| | |  2 files changed, 5 insertions(+), 5 deletions(-)
+
+* | | 003f08e 2026-04-22 22:38 EDT submit fixed to work with normalize correctly| | | 
+| | |  lib/game.ml | 6 +++---
+| | |  1 file changed, 3 insertions(+), 3 deletions(-)
+
+* | | 22e9150 2026-04-22 22:19 EDT implemented submit and is_won functions in game.ml| | | 
+| | |  AUTHORS.md   |   2 +-
+| | |  lib/game.ml  | 102 ++++++++++++++++++++++++++++++++++++++++++++++++++++-
+| | |  lib/game.mli |  14 ++++----
+| | |  lib/types.ml |   2 +-
+| | |  4 files changed, 110 insertions(+), 10 deletions(-)
+
+* | | a819ddc 2026-04-22 22:18 EDT implemented submit and is_won| | | 
+| | |  lib/game.ml | 88 +------------------------------------------------------
+| | |  1 file changed, 1 insertion(+), 87 deletions(-)
+
+* | | ed2e8f6 2026-04-22 21:08 EDT Added game.mli file with approriate comments| | | 
+| | |  lib/game.mli | 43 +++++++++++++++++++++++++++++++++++++++++++
+| | |  1 file changed, 43 insertions(+)
+
+* | | dffc90b 2026-04-22 20:58 EDT Changed test to take in a random puzzle now that json contains more than one puzzle| | | 
+| | |  test/test_game.ml | 2 +-
+| | |  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* | | 27bef1d 2026-04-22 20:55 EDT Implemented normalize and test cases for it| | | 
+| | |  AUTHORS.md        | 12 +++++++-----
+| | |  INSTALL.md        |  4 +++-
+| | |  lib/game.ml       |  4 +++-
+| | |  test/test_game.ml |  3 +++
+| | |  4 files changed, 16 insertions(+), 7 deletions(-)
+
+* | |   56afe03 2026-04-22 17:09 EDT created functions to pick a puzzle based on difficulty + tests
+|\ \ \  
+| * | | 9f2df74 2026-04-22 17:07 EDT created functions to pick a puzzle based on difficulty + tests
+|/ / /  | | |   
+| | |    bin/main.ml                   | 13 +++++++------
+| | |    data/ver2_NESTED_puzzles.json | 11 +++++++++++
+| | |    lib/dune                      |  2 +-
+| | |    lib/game.ml                   | 10 +++++-----
+| | |    lib/parser.ml                 | 10 ++++++++++
+| | |    lib/parser.mli                |  3 +++
+| | |    test/dune                     |  2 +-
+| | |    test/test_game.ml             | 26 ++++++++++++++++++++++----
+| | |    8 files changed, 60 insertions(+), 17 deletions(-)
+
+* | |   07beaf5 2026-04-22 14:01 EDT Implemented changed to better frontend usability
+|\ \ \  
+| | |/  
+| |/|   
+| * |   3088e03 2026-04-22 13:58 EDT Merge remote-tracking branch 'origin/main' into anshu-branch
+| |\ \  
+| |/ /  
+|/| |   
+* | | 8db802e 2026-04-22 13:55 EDT Added April 22nd puzzle onto json file. need to add randomizer puzzle picker later| | | 
+| | |  data/ver2_NESTED_puzzles.json | 81 +++++++++++++++++++++++++++++++++++++
+| | |  1 file changed, 81 insertions(+)
+
+| * | 66974bb 2026-04-22 13:56 EDT implemented changes so html files open when running bin/main.exe
+|/ /  | |   
+| |    bin/main.ml       |  5 ++++-
+| |    public/index.html | 33 ++++-----------------------------
+| |    2 files changed, 8 insertions(+), 30 deletions(-)
+
+* | efe1c25 2026-04-22 00:08 EDT implemented tokenizer in game.ml (NOTE: temporarliy placed game as a module in lib fune, should be changed once mli is done?)| | 
+| |  lib/dune          |  2 +-
+| |  lib/game.ml       | 31 +++++++++++++++++++++++++++++--
+| |  test/test_game.ml | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+| |  3 files changed, 78 insertions(+), 3 deletions(-)
+
+* | c7f49ac 2026-04-21 20:14 EDT Added Monisha's game.ml file I accidentally deleted| | 
+| |  lib/game.ml | 59 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+| |  1 file changed, 58 insertions(+), 1 deletion(-)
+
+* |   4382d6f 2026-04-21 20:10 EDT Merge pull request #10 from clarify239/basicHTML
+|\ \  
+| | * 3c30136 2026-04-22 22:59 EDT Since index.ml and game.ml were running on two unrelated Dream.run I combined them so they're serviced by one Dream Server - Also removed some redundancies on index.html and made logo smaller so everything would fit on one screen| | | 
+| | |  bin/main.ml             |  67 +++++++++++++++++++++++++--
+| | |  lib/game.ml             | 102 +++++++++++++++++++++++++++++++++++++++++-
+| | |  public/ocamlTerminal.ml |  65 ---------------------------
+| | |  3 files changed, 165 insertions(+), 69 deletions(-)
+
+| | * d5982dd 2026-04-22 22:42 EDT Move current work onto basicHTML and resolve index conflict
+| |/  | |   
+| |    public/index.html       | 167 +++++++++++++++++++++---------------------
+| |    public/ocamlTerminal.ml |   3 +-
+| |    2 files changed, 85 insertions(+), 85 deletions(-)
+
+| *   1f245af 2026-04-21 19:36 EDT Merge branch 'main' into basicHTML
+| |\  
+| |/  
+|/|   
+* |   67ea953 2026-04-21 19:35 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final
+|\ \  
+| * \   a517bbd 2026-04-21 18:55 EDT Fixed parsing test cases
+| |\ \  
+| | * | 7e568f7 2026-04-21 18:51 EDT Fixed test cases
+| |/ /  | | |   
+| | |    test/test_game.ml | 19 +++++++++----------
+| | |    1 file changed, 9 insertions(+), 10 deletions(-)
+
+| * |   60f929a 2026-04-21 18:29 EDT Merge pull request #6 from clarify239/anshu-branch
+| |\ \  
+| | * | 075ac3b 2026-04-21 18:25 EDT fixed merge conflict| | | | 
+| | | |  data/ver2_NESTED_puzzles.json | 832 +---------------------------------
+| | | |  public/index.html             |  35 +-
+| | | |  2 files changed, 3 insertions(+), 864 deletions(-)
+
+| | * |   eab6498 2026-04-21 18:18 EDT Merge branch 'main' of https://github.com/clarify239/cs3110-final into anshu-branch
+| | |\ \  
+| | * | | 51ea51a 2026-04-21 18:15 EDT fixed conflicts| | | | | 
+| | | | |  data/ver2_NESTED_puzzles.json | 3 ---
+| | | | |  1 file changed, 3 deletions(-)
+
+| | * | |   1635ac3 2026-04-21 18:10 EDT Fixed homepage
+| | |\ \ \  
+| | * | | | 9e32733 2026-04-20 23:39 EDT fixed the logo| | | | | | 
+| | | | | |  _build/.digest-db      | Bin 100782 -> 100782 bytes
+| | | | | |  _build/trace.csexp     |   2 +-
+| | | | | |  assets/logo.png        | Bin 134799 -> 0 bytes
+| | | | | |  public/assets/logo.png | Bin 0 -> 181219 bytes
+| | | | | |  public/index.html      |   3 ++-
+| | | | | |  5 files changed, 3 insertions(+), 2 deletions(-)
+
+| | * | | | 788247a 2026-04-20 23:30 EDT index.html frontpage| | | | | | 
+| | | | | |  _build/.db                                  | Bin 1240 -> 1240 bytes
+| | | | | |  _build/.digest-db                           | Bin 1994 -> 100782 bytes
+| | | | | |  _build/default/.dune/configurator           |   4 +-
+| | | | | |  _build/default/.dune/configurator.v2        |   2 +-
+| | | | | |  .../.main.eobjs/byte/dune__exe__Main.cmi    | Bin 205 -> 204 bytes
+| | | | | |  .../.main.eobjs/byte/dune__exe__Main.cmti   | Bin 2519 -> 2457 bytes
+| | | | | |  .../.main.eobjs/native/dune__exe__Main.cmx  | Bin 219 -> 2236 bytes
+| | | | | |  .../.main.eobjs/native/dune__exe__Main.o    | Bin 1816 -> 2704 bytes
+| | | | | |  _build/default/bin/.merlin-conf/exe-main    | Bin 605 -> 5327 bytes
+| | | | | |  _build/default/bin/main.exe                 | Bin 479032 -> 11208568 bytes
+| | | | | |  _build/default/bin/main.ml                  |   5 +-
+| | | | | |  _build/trace.csexp                          |   2 +-
+| | | | | |  {assests => assets}/logo.png                | Bin
+| | | | | |  bin/dune                                    |   4 +-
+| | | | | |  bin/main.ml                                 |   5 +-
+| | | | | |  data/ver2_NESTED_puzzles.json               |  17 +-
+| | | | | |  public/index.html                           | 862 ++++++++++++++++
+| | | | | |  17 files changed, 878 insertions(+), 23 deletions(-)
+
+| | * | | | d4711e5 2026-04-20 23:08 EDT added logo and new data| | | | | | 
+| | | | | |  assests/logo.png              |  Bin 0 -> 134799 bytes
+| | | | | |  data/ver2_NESTED_puzzles.json | 1108 +++++++++++++++++++++--------
+| | | | | |  lib/game.ml                   |    1 -
+| | | | | |  3 files changed, 827 insertions(+), 282 deletions(-)
+
+| * | | | |   431d3a1 2026-04-21 18:23 EDT Added new field representing if a bracket was solved
+| |\ \ \ \ \  
+| | |_|_|/ /  
+| |/| | | |   
+| | * | | | d902eaf 2026-04-21 18:22 EDT Added new field representing if a bracket was solved
+| |/ / / /  | | | | |   
+| | | | |    lib/parser.ml | 1 +
+| | | | |    lib/types.ml  | 1 +
+| | | | |    2 files changed, 2 insertions(+)
+
+* / / / / 72466d5 2026-04-21 19:22 EDT Implemented stubs for all game.ml with comments; new type made
+|/ / / /  | | | |   
+| | | |    lib/game.ml  | 75 +++++++++++++++++++++++++++++++++++++++++++++++++-
+| | | |    lib/types.ml |  4 +++
+| | | |    2 files changed, 78 insertions(+), 1 deletion(-)
+
+* | | | 5f5f52d 2026-04-21 17:43 EDT Better json scheme with numbering system| | | | 
+| | | |  data/ver2_NESTED_puzzles.json | 81 ++++++++++++++++++++++++++---------
+| | | |  1 file changed, 60 insertions(+), 21 deletions(-)
+
+| | | * 7c0fe5b 2026-04-21 19:27 EDT - Separated original game.html into separate files (html, css, js) - Reworked Bracket City UI to look more similar to the actual game - Added client logic to listen for "BRACKET|" messages to replace the text inside bracket1 once the answer is correct| | | | 
+| | | |  public/game-scripts.js  |  27 ++++++++++
+| | | |  public/game-styles.css  | 117 ++++++++++++++++++++++++++++++++++++++++
+| | | |  public/game.html        |  54 +++++++++++++++++++
+| | | |  public/ocamlTerminal.ml |  17 +++---
+| | | |  public/printOcaml.html  |  52 ------------------
+| | | |  5 files changed, 208 insertions(+), 59 deletions(-)
+
+| | | * ca798b1 2026-04-21 17:10 EDT Added bracket replacement on webpage with corresponding terminal output - it's basic for now because I hardcoded a bracket and an answer but will integrate with parsing later| | | | 
+| | | |  public/ocamlTerminal.ml | 72 +++++++++++++++++++++++------------------
+| | | |  public/printOcaml.html  | 29 ++++++++++++++++-
+| | | |  2 files changed, 69 insertions(+), 32 deletions(-)
+
+| | | * d668827 2026-04-21 00:13 EDT Remove _build from git tracking| | | | 
+| | | |  .gitignore  | 2 +-
+| | | |  lib/game.ml | 2 +-
+| | | |  2 files changed, 2 insertions(+), 2 deletions(-)
+
+| | | * f86e649 2026-04-21 00:11 EDT Remove _build from git tracking
+| |_|/  
+|/| |   | | |   
+| | |    .gitignore | 2 +-
+| | |    1 file changed, 1 insertion(+), 1 deletion(-)
+
+* | | 99df9a2 2026-04-21 13:57 EDT removed extraneous files (loader and puzzle)
+| |/  
+|/|   | |   
+| |    lib/loader.ml | 1 -
+| |    lib/puzzle.ml | 1 -
+| |    2 files changed, 2 deletions(-)
+
+* |   423607e 2026-04-21 01:58 EDT Wrote test cases for parsing logic from wangamber8-collab/Amber_branch
+|\ \  
+| * | 858583c 2026-04-21 01:52 EDT Wrote tests for parsing logic| | | 
+| | |  .ocamlformat                |  3 ++-
+| | |  lib/parser.ml               |  1 +
+| | |  lib/parser.mli              |  5 +++++
+| | |  lib/{types.mli => types.ml} |  0
+| | |  test/dune                   |  5 +++++
+| | |  test/test_game.ml           | 34 ++++++++++++++++++++++++++++++++++
+| | |  6 files changed, 47 insertions(+), 1 deletion(-)
+
+* | | c3a1f9f 2026-04-21 00:43 EDT Merge pull request #4 from wangamber8-collab/Amber_branch
+|\| | 
+| * |   2ec34d8 2026-04-21 00:40 EDT Merge branch 'main' into Amber_branch
+| |\ \  
+| |/ /  
+|/| |   
+* | | 485b237 2026-04-21 00:16 EDT Delete _build directory| | | 
+| | |  _build/.db                                      | Bin 2367 -> 0 bytes
+| | |  _build/.digest-db                               | Bin 108894 -> 0 bytes
+| | |  _build/.filesystem-clock                        |   1 -
+| | |  _build/.lock                                    |   0
+| | |  _build/default/.dune/configurator               |   2 -
+| | |  _build/default/.dune/configurator.v2            |   1 -
+| | |  _build/default/README.md                        |   9 ----
+| | |  .../bin/.main.eobjs/byte/dune__exe__Main.cmi    | Bin 205 -> 0 bytes
+| | |  .../bin/.main.eobjs/byte/dune__exe__Main.cmti   | Bin 2505 -> 0 bytes
+| | |  .../bin/.main.eobjs/native/dune__exe__Main.cmx  | Bin 219 -> 0 bytes
+| | |  .../bin/.main.eobjs/native/dune__exe__Main.o    | Bin 3464 -> 0 bytes
+| | |  _build/default/bin/.merlin-conf/exe-main        | Bin 654 -> 0 bytes
+| | |  _build/default/bin/main.exe                     | Bin 1702600 -> 0 bytes
+| | |  _build/default/bin/main.ml                      |   1 -
+| | |  _build/default/bin/main.mli                     |   1 -
+| | |  .../public/.merlin-conf/exe-ocamlTerminal       | Bin 6012 -> 0 bytes
+| | |  .../byte/dune__exe__OcamlTerminal.cmi           | Bin 223 -> 0 bytes
+| | |  .../byte/dune__exe__OcamlTerminal.cmti          | Bin 7587 -> 0 bytes
+| | |  .../native/dune__exe__OcamlTerminal.cmx         | Bin 2604 -> 0 bytes
+| | |  .../native/dune__exe__OcamlTerminal.o           | Bin 15952 -> 0 bytes
+| | |  _build/default/public/ocamlTerminal.exe         | Bin 17808168 -> 0 bytes
+| | |  _build/default/public/ocamlTerminal.ml          |  51 ------------------
+| | |  _build/default/public/ocamlTerminal.mli         |   1 -
+| | |  .../install/default/doc/cs3110-final/README.md  |   1 -
+| | |  _build/install/default/lib/cs3110-final/META    |   1 -
+| | |  .../default/lib/cs3110-final/dune-package       |   1 -
+| | |  _build/trace.csexp                              |   1 -
+| | |  27 files changed, 71 deletions(-)
+
+* | | c3d4877 2026-04-21 00:05 EDT Created AUTHORS.md, INSTALL.md, .gitignore, and .ocamlformat files| | | 
+| | |  .gitignore   | 3 +++
+| | |  .ocamlformat | 6 ++++++
+| | |  AUTHORS.md   | 8 ++++++++
+| | |  INSTALL.md   | 1 +
+| | |  4 files changed, 18 insertions(+)
+
+* | | 4e398cb 2026-04-21 00:03 EDT Update formatting of group member emails in README| | | 
+| | |  README.md | 4 ++--
+| | |  1 file changed, 2 insertions(+), 2 deletions(-)
+
+* | |   eb5d97d 2026-04-20 23:56 EDT Merge pull request #3 from clarify239/basicHTML
+|\ \ \  
+| |_|/  
+|/| |   
+| * | 86b05e6 2026-04-20 23:53 EDT Add basic HTML page and OCaml websocket terminal prototype, established frontend and backend connection
+|/ /  | |   
+| |    _build/.db                                      | Bin 1240 -> 2367 bytes
+| |    _build/.digest-db                               | Bin 1994 -> 108894 bytes
+| |    _build/default/.dune/configurator               |   4 +-
+| |    _build/default/.dune/configurator.v2            |   2 +-
+| |    .../bin/.main.eobjs/byte/dune__exe__Main.cmti   | Bin 2519 -> 2505 bytes
+| |    .../bin/.main.eobjs/native/dune__exe__Main.o    | Bin 1816 -> 3464 bytes
+| |    _build/default/bin/.merlin-conf/exe-main        | Bin 605 -> 654 bytes
+| |    _build/default/bin/main.exe                     | Bin 479032 -> 1702600 bytes
+| |    _build/default/bin/main.ml                      |   2 +-
+| |    .../public/.merlin-conf/exe-ocamlTerminal       | Bin 0 -> 6012 bytes
+| |    .../byte/dune__exe__OcamlTerminal.cmi           | Bin 0 -> 223 bytes
+| |    .../byte/dune__exe__OcamlTerminal.cmti          | Bin 0 -> 7587 bytes
+| |    .../native/dune__exe__OcamlTerminal.cmx         | Bin 0 -> 2604 bytes
+| |    .../native/dune__exe__OcamlTerminal.o           | Bin 0 -> 15952 bytes
+| |    _build/default/public/ocamlTerminal.exe         | Bin 0 -> 17808168 bytes
+| |    _build/default/public/ocamlTerminal.ml          |  51 ++++++++++++++++++
+| |    _build/default/public/ocamlTerminal.mli         |   1 +
+| |    _build/trace.csexp                              |   2 +-
+| |    bin/main.ml                                     |   2 +-
+| |    public/dune                                     |   3 ++
+| |    public/ocamlTerminal.ml                         |  51 ++++++++++++++++++
+| |    public/printOcaml.html                          |  25 +++++++++
+| |    22 files changed, 137 insertions(+), 6 deletions(-)
+
+* |   7fdd0d2 2026-04-20 22:42 EDT Merge pull request #2 from clarify239/anshu-branch
+|\ \  
+| * | 10643f7 2026-04-20 22:22 EDT game logic files implemented| | | 
+| | |  lib/game.ml       | 1 +
+| | |  lib/loader.ml     | 1 +
+| | |  lib/puzzle.ml     | 1 +
+| | |  public/index.html | 0
+| | |  4 files changed, 3 insertions(+)
+
+| | * 2ee31fb 2026-04-21 00:37 EDT Delete .DS_Store| | | 
+| | |  .DS_Store | Bin 6148 -> 0 bytes
+| | |  1 file changed, 0 insertions(+), 0 deletions(-)
+
+| | * a5c89f1 2026-04-21 00:36 EDT Added parsing Json file logic to make it into data structure
+| |/  
+|/|   | |   
+| |    .gitignore                                      |   3 +
+| |    .ocamlformat                                    |   6 +
+| |    AUTHORS.md                                      |   5 +
+| |    _build/.db                                      | Bin 1240 -> 0 bytes
+| |    _build/.digest-db                               | Bin 1994 -> 0 bytes
+| |    _build/.filesystem-clock                        |   1 -
+| |    _build/default/.dune/configurator               |   2 -
+| |    _build/default/.dune/configurator.v2            |   1 -
+| |    _build/default/README.md                        |   9 -
+| |    .../bin/.main.eobjs/byte/dune__exe__Main.cmi    | Bin 205 -> 0 bytes
+| |    .../bin/.main.eobjs/byte/dune__exe__Main.cmti   | Bin 2519 -> 0 bytes
+| |    .../bin/.main.eobjs/native/dune__exe__Main.cmx  | Bin 219 -> 0 bytes
+| |    .../bin/.main.eobjs/native/dune__exe__Main.o    | Bin 1816 -> 0 bytes
+| |    _build/default/bin/.merlin-conf/exe-main        | Bin 605 -> 0 bytes
+| |    _build/default/bin/main.exe                     | Bin 479032 -> 0 bytes
+| |    _build/default/bin/main.ml                      |   1 -
+| |    _build/default/bin/main.mli                     |   1 -
+| |    .../install/default/doc/cs3110-final/README.md  |   1 -
+| |    _build/install/default/lib/cs3110-final/META    |   1 -
+| |    .../default/lib/cs3110-final/dune-package       |   1 -
+| |    _build/trace.csexp                              |   1 -
+| |    bin/dune                                        |   4 +-
+| |    bin/main.ml                                     |   1 -
+| |    data/ver2_NESTED_puzzles.json                   | 338 +++---------------
+| |    lib/dune                                        |   4 +
+| |    _build/.lock => lib/game.ml                     |   0
+| |    lib/parser.ml                                   |  21 ++
+| |    lib/types.mli                                   |  15 +
+| |    28 files changed, 97 insertions(+), 319 deletions(-)
+
+* |   0807059 2026-04-20 19:05 EDT Merge pull request #1 from clarify239/neetu-branch
+|\ \  
+| |/  
+|/|   
+| * bfe9729 2026-04-20 18:50 EDT Added data file
+|/  |   
+|    .DS_Store                                        | Bin 0 -> 6148 bytes
+|    _build/.db                                       | Bin 1240 -> 1240 bytes
+|    _build/.digest-db                                | Bin 1804 -> 1994 bytes
+|    _build/default/.dune/configurator                |   4 +-
+|    _build/default/.dune/configurator.v2             |   2 +-
+|    .../bin/.main.eobjs/byte/dune__exe__Main.cmti    | Bin 2505 -> 2519 bytes
+|    .../bin/.main.eobjs/native/dune__exe__Main.o     | Bin 3464 -> 1816 bytes
+|    _build/default/bin/.merlin-conf/exe-main         | Bin 598 -> 605 bytes
+|    _build/default/bin/main.exe                      | Bin 1702600 -> 479032 bytes
+|    _build/trace.csexp                               |   2 +-
+|    data/ver2_NESTED_puzzles.json                    | 299 +++++++++++++++++++
+|    11 files changed, 303 insertions(+), 4 deletions(-)
+
+* 52c8a51 2026-04-19 17:21 EDT test commit| 
+|  _build/.db                                          | Bin 0 -> 1240 bytes
+|  _build/.digest-db                                   | Bin 0 -> 1804 bytes
+|  _build/.filesystem-clock                            |   1 +
+|  _build/.lock                                        |   0
+|  _build/default/.dune/configurator                   |   2 ++
+|  _build/default/.dune/configurator.v2                |   1 +
+|  _build/default/README.md                            |   9 +++++++++
+|  .../bin/.main.eobjs/byte/dune__exe__Main.cmi        | Bin 0 -> 205 bytes
+|  .../bin/.main.eobjs/byte/dune__exe__Main.cmti       | Bin 0 -> 2505 bytes
+|  .../bin/.main.eobjs/native/dune__exe__Main.cmx      | Bin 0 -> 219 bytes
+|  .../bin/.main.eobjs/native/dune__exe__Main.o        | Bin 0 -> 3464 bytes
+|  _build/default/bin/.merlin-conf/exe-main            | Bin 0 -> 598 bytes
+|  _build/default/bin/main.exe                         | Bin 0 -> 1702600 bytes
+|  _build/default/bin/main.ml                          |   1 +
+|  _build/default/bin/main.mli                         |   1 +
+|  _build/install/default/doc/cs3110-final/README.md   |   1 +
+|  _build/install/default/lib/cs3110-final/META        |   1 +
+|  .../install/default/lib/cs3110-final/dune-package   |   1 +
+|  _build/trace.csexp                                  |   1 +
+|  bin/dune                                            |   1 +
+|  bin/main.ml                                         |   1 +
+|  dune-project                                        |  12 ++++++++++++
+|  22 files changed, 33 insertions(+)
+
+* 382cad5 2026-03-23 21:26 EDT Update README.md| 
+|  README.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* 0e57540 2026-03-22 16:56 EDT Add Monisha Bommu to the contributors list| 
+|  README.md | 1 +
+|  1 file changed, 1 insertion(+)
+
+* 1ce6b1f 2026-03-22 16:47 EDT Update README.md| 
+|  README.md | 1 +
+|  1 file changed, 1 insertion(+)
+
+* e4fd4b9 2026-03-22 16:44 EDT Update README.md - Amber Wang aw896@cornell.edu| 
+|  README.md | 1 +
+|  1 file changed, 1 insertion(+)
+
+* ca81a75 2026-03-22 16:43 EDT Update README.md| 
+|  README.md | 2 +-
+|  1 file changed, 1 insertion(+), 1 deletion(-)
+
+* 87f9a81 2026-03-22 16:42 EDT Added my details to group members list| 
+|  README.md | 1 +
+|  1 file changed, 1 insertion(+)
+
+* 83632c5 2026-03-22 16:38 EDT Update README.md| 
+|  README.md | 3 +++
+|  1 file changed, 3 insertions(+)
+
+* b2fb78f 2026-03-22 16:37 EDT Initial commit  
+   README.md | 2 ++
+   1 file changed, 2 insertions(+)
