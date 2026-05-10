@@ -1,3 +1,26 @@
+(** Abstraction function: A session {score; correct_count; wrong_count;
+    hint_count; streak; max_streak; pending_penalty; skip_count} represents
+    the full scoring state of one play-through. [score] is the current
+    cumulative points (always >= 0). [correct_count], [wrong_count],
+    [hint_count], and [skip_count] are non-negative tallies of each event.
+    [streak] is the current consecutive-correct run and [max_streak] is the
+    highest such run reached. [pending_penalty] is deferred point debt that
+    was absorbed by the score floor and will be deducted before the next
+    correct answer banks points.
+    Representation Invariant: All fields are >= 0. [streak] <= [max_streak]
+    <= [correct_count]. [pending_penalty] is 0 when [score] > 0. *)
+
+(** Abstraction function: A summary {final_score; accuracy; grade;
+    max_streak; hints_used} is a read-only end-of-game snapshot.
+    [final_score] is the clamped final score. [accuracy] is the fraction of
+    non-skip attempts that were correct. [grade] is a letter grade derived
+    from accuracy: "S" for a perfect session, then "A" >= 0.9, "B" >= 0.75,
+    "C" >= 0.5, and "D" otherwise. [max_streak] and [hints_used] mirror the
+    session totals.
+    Representation Invariant: [final_score] >= 0. [accuracy] is in [0.0,
+    1.0]. [grade] is one of "S","A","B","C","D". [max_streak] >= 0.
+    [hints_used] >= 0. *)
+    
 open Types
 
 type session = {

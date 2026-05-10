@@ -1,4 +1,4 @@
-(* main_logic.ml — Dynamic game loop for Bracket City
+(** main_logic.ml — Dynamic game loop for Bracket City
 
    This file connects the OCaml game engine (lib/game.ml, lib/parser.ml) to the Dream
    WebSocket server so that the browser frontend gets real puzzle data instead
@@ -7,38 +7,35 @@
 open Lwt.Syntax
 open Cs3110_final
 
-(* Load all puzzles from the JSON data file.
+(** Load all puzzles from the JSON data file.
 
    This runs exactly once when the module is first loaded (i.e. at server startup). 
-   All WebSocket sessions share this list and call choose_puzzle to get their own copy. *)
+   All WebSocket sessions share this list and call [choose_puzzle] to get their own copy. *)
 let all_puzzles : Types.puzzle list =
   Parser.load_puzzles "data/ver2_NESTED_puzzles.json"
 
-(* difficulty
-   This is hardcoded to "hard". Difficulty is passed as a query parameter
-   and extracted from the Dream.request inside ws_handler. *)
+(** [default_difficulty] is the difficulty level applied to all puzzle selections. 
+   Difficulty is passed as a query parameter and extracted from the [Dream.request] inside [ws_handler]. *)
 let default_difficulty : string = "hard"
 
-(* clients list
-
-   [clients] tracks every open WebSocket. It is only used by [_broadcast_all],
+(** [clients] tracks every open WebSocket. It is only used by [_broadcast_all],
    which is stubbed out for a future collaborative mode. In per-session mode,
    each handler only talks to its own [ws]. *)
 let clients : Dream.websocket list ref = ref []
 
-(* Remove a single WebSocket from the global client list on disconnect. *)
+(** [remove_client ws] removes [ws] from the global client list on disconnect. *)
 let remove_client (ws : Dream.websocket) : unit =
   clients := List.filter (fun c -> c != ws) !clients
 
-(* send_to: Send one message to one WebSocket, silently ignoring errors.
+(** [send_to ws msg] sends one message to one WebSocket, silently ignoring errors.
 
-   Dream.send raises an exception if the socket is already closed (e.g. the
+   [Dream.send] raises an exception if the socket is already closed (e.g. the
    browser tab was closed mid-game). We catch that here so the server does not
    crash on a disconnected client. *)
 let send_to (ws : Dream.websocket) (msg : string) : unit Lwt.t =
   Lwt.catch (fun () -> Dream.send ws msg) (fun _exn -> Lwt.return_unit)
 
-(* _broadcast_all — Send the same message to every connected client.
+(** [_broadcast_all msg] sends the same message to every connected client.
 
    Not used in per-session mode. This is for a collaborative mode where
    all players share one puzzle. We replace [send_to ws] calls with
@@ -46,52 +43,62 @@ let send_to (ws : Dream.websocket) (msg : string) : unit Lwt.t =
 let _broadcast_all (msg : string) : unit Lwt.t =
   Lwt_list.iter_p (fun ws -> send_to ws msg) !clients
 
-(* send_bracket: Render current puzzle state and push it to one client.
+(** [send_bracket ws state] renders current puzzle state and push it to one client.
 
-   Game.render returns the puzzle string with unsolved nodes shown as [clue] and
+   [Game.render] returns the puzzle string with unsolved nodes shown as [clue] and
    solved nodes shown as their bare answer. The frontend wraps the whole thing
    in [ ] itself, so we don't add outer brackets here. *)
 let send_bracket (ws : Dream.websocket) (state : Types.puzzle ref) : unit Lwt.t  = 
   send_to ws ("BRACKET|" ^ Game.render !state)
 
+(** [send_progress ws state] sends the current solved/total node counts to the client.
+ 
+   The message format is: [PROGRESS|solved|total]. *)
+
 let send_progress (ws : Dream.websocket) (state : Types.puzzle ref) : unit Lwt.t =
   let solved, total = Game.progress !state in send_to ws (Printf.sprintf "PROGRESS|%d|%d" solved total)
+
+(** [elapsed_seconds start_time] returns the number of whole seconds elapsed
+   since [start_time] (a Unix timestamp from [Unix.gettimeofday ()]). *)
 
 let elapsed_seconds (start_time : float) : int =
   int_of_float (Unix.gettimeofday () -. start_time)
 
+(** [send_timer ws start_time] sends the elapsed time since [start_time] to the client.
+ 
+   The message format is: [TIMER|seconds]. *)
+
 let send_timer (ws : Dream.websocket) (start_time : float) : unit Lwt.t =
   send_to ws (Printf.sprintf "TIMER|%d" (elapsed_seconds start_time))
 
-(* _send_exposed — Tell the client which answers are currently guessable.
+(** [_send_exposed ws state] tells the client which answers are currently guessable.
    
-   Game.exposed returns the unsolved nodes whose children are
+   [Game.exposed] returns the unsolved nodes whose children are
    all solved. As the player guesses correctly, their parents become the new leaves.
    Sending this list lets the frontend display a hint panel *)
 let _send_exposed (ws : Dream.websocket) (state : Types.puzzle ref) : unit Lwt.t =
   let exposed_nodes = Game.exposed !state in
   let answer_list = List.map (fun (n : Types.node) -> n.answer) exposed_nodes in
   let csv = String.concat "," answer_list in
-  (* STUB: uncomment the line below once the frontend handles "EXPOSED|" *)
-  (* send_to ws ("EXPOSED|" ^ csv) *)
   ignore csv;
   ignore ws;
   Lwt.return_unit
 
-(*  _send_incorrect — Tell the client their guess was wrong.
+(**  [_send_incorrect ws guess] tells the client their guess was wrong.
    
-   This sends the rejected guess back so the frontend can alert an error *)
+   This sends the rejected [guess] back so the frontend can alert an error 
+   The message format is: [INCORRECT|guess]. *)
 let _send_incorrect (ws : Dream.websocket) (guess : string) : unit Lwt.t =
   send_to ws ("INCORRECT|" ^ guess)
 
-(* send_stats: Send the player's victory statistics to the frontend.
-
-   [total_guesses] counts every submitted answer attempt
-   [wrong_guesses] counts guesses that did not match any exposed node
-   [hints_used] counts hint usage
-   The number of correct guesses is computed as: total_guesses - wrong_guesses
-   Accuracy is computed as an integer percentage: correct_guesses * 100 / total_guesses
-   The message format sent to the frontend is: STATS|total_guesses|wrong_guesses|hints_used|accuracy *)
+(** [send_stats ws session] sends the player's victory statistics to the frontend.
+  Fields computed from [session]:
+   [total_guesses]: counts every submitted answer attempt
+   [wrong_guesses]: counts guesses that did not match any exposed node
+   [hints_used]: counts hint usage
+   correct guesses : [total_guesses - wrong_guesses]
+   accuracy: integer percentage, [correct_guesses * 100 / total_guesses]
+   The message format sent to the frontend is: [STATS|total|wrong|hints|accuracy|score|grade|streak] *)
 
 let send_stats (ws : Dream.websocket) (session : Score.session ref) : unit Lwt.t =
   let s = !session in
@@ -101,24 +108,23 @@ let send_stats (ws : Dream.websocket) (session : Score.session ref) : unit Lwt.t
   send_to ws
     (Printf.sprintf "STATS|%d|%d|%d|%d|%d|%s|%d" total s.wrong_count s.hint_count accuracy_pct sum.final_score sum.grade s.max_streak)
 
-(* _send_win — Tell the client they have solved the whole puzzle.
+(** [_send_win ws state] sells the client they have solved the whole puzzle.
    
-   Game.is_won checks whether the root node is solved. The root can only be
+   [Game.is_won] checks whether the root node is solved. The root can only be
    solved after every node in the tree has been guessed correctly, so this fires
    exactly once per game.*)
 let _send_win (ws : Dream.websocket) (state : Types.puzzle ref) : unit Lwt.t =
   send_to ws ("WIN|" ^ !state.root.answer)
 
-(* handle_guess: Process one guess from the player.
+(** [handle_guess ws state session start_time guess] processes one guess from the player.
    
-   1. Re-render the bracket and push it to the client.
-   Because [solved] flags were already mutated by Game.submit, Game.render now
-   shows the newly solved node as its bare answer (no brackets) and everything
-   else unchanged. 
-   2. Check Game.is_won — Send the WIN stop
-
-   for incorrect guesses: Send the INCORRECT msg. The bracket display does not
-   change. *)
+   Steps:
+   1. Normalise the guess and check it against the currently exposed nodes via [Game.submit].
+   2. If correct: update [session] with score, re-render the bracket, update progress,
+      and check [Game.is_won]. If the puzzle is now complete, send [TIMER], [STATS],
+      and [WIN] messages.
+   3. If incorrect: increment the wrong-guess counter in [session] and send [INCORRECT].
+    *)
 let handle_guess (ws : Dream.websocket) (state : Types.puzzle ref)
     (session : Score.session ref) (start_time : float) (guess : string) :
     unit Lwt.t =
@@ -159,7 +165,7 @@ let handle_guess (ws : Dream.websocket) (state : Types.puzzle ref)
     _send_incorrect ws guess
   end
 
-(* ws_handler: Handle one WebSocket connection (one browser session).
+(** ws_handler: Handle one WebSocket connection (one browser session).
    
    Dream calls this function whenever a browser opens ws://localhost:8080/ws.
 
@@ -173,6 +179,12 @@ let handle_guess (ws : Dream.websocket) (state : Types.puzzle ref)
    processes each incoming guess via [handle_guess], and exits when the client
    disconnects (Dream.receive returns None). 
    7. [Lwt.finalize] guarantees [remove_client] runs  *)
+
+(** [handle_hint ws state session chip_body] handles a first-letter hint request.
+ 
+   Looks up the exposed node whose body matches [chip_body] via [Game.hint_first_letter].
+   If found, charges the hint to [session] and sends [HINT|letter] to the client.
+   If no matching node is found, returns without sending anything. *)
 let handle_hint (ws : Dream.websocket) (state : Types.puzzle ref)
     (session : Score.session ref) (chip_body : string) : unit Lwt.t =
   match Game.hint_first_letter chip_body !state with
@@ -181,6 +193,11 @@ let handle_hint (ws : Dream.websocket) (state : Types.puzzle ref)
       session := Score.apply_hint_of_kind !session Score.First_letter;
       send_to ws ("HINT|" ^ letter)
 
+(** [handle_hint_length ws state session chip_body] handles an answer-length hint request.
+ 
+   Looks up the exposed node whose body matches [chip_body] via [Game.hint_answer_length].
+   If found, charges the hint to [session] and sends [HINT_LEN|n] to the client.
+   If no matching node is found, returns without sending anything. *)
 let handle_hint_length (ws : Dream.websocket) (state : Types.puzzle ref)
     (session : Score.session ref) (chip_body : string) : unit Lwt.t =
   match Game.hint_answer_length chip_body !state with
@@ -189,6 +206,11 @@ let handle_hint_length (ws : Dream.websocket) (state : Types.puzzle ref)
       session := Score.apply_hint_of_kind !session Score.Length;
       send_to ws (Printf.sprintf "HINT_LEN|%d" n)
 
+(** [handle_hint_words ws state session chip_body] handles a word-count hint request.
+ 
+   Looks up the exposed node whose body matches [chip_body] via [Game.hint_word_count].
+   If found, charges the hint to [session] and sends [HINT_WORDS|n] to the client.
+   If no matching node is found, returns without sending anything. *)
 let handle_hint_words (ws : Dream.websocket) (state : Types.puzzle ref)
     (session : Score.session ref) (chip_body : string) : unit Lwt.t =
   match Game.hint_word_count chip_body !state with
@@ -197,6 +219,12 @@ let handle_hint_words (ws : Dream.websocket) (state : Types.puzzle ref)
       session := Score.apply_hint_of_kind !session Score.Word_count;
       send_to ws (Printf.sprintf "HINT_WORDS|%d" n)
 
+(** [handle_reveal ws state session start_time chip_body] reveals the answer for one node.
+ 
+   Calls [Game.reveal_by_body] to mark the node as solved without a guess.
+   If successful, charges a [Reveal] hint to [session], re-renders the bracket,
+   and checks for win conditions identically to [handle_guess].
+   If [chip_body] does not match any exposed node, returns without sending anything. *)
 let handle_reveal (ws : Dream.websocket) (state : Types.puzzle ref) (session : Score.session ref) (start_time : float) (chip_body : string) : unit Lwt.t =
   if Game.reveal_by_body chip_body !state then begin
     session := Score.apply_hint_of_kind !session Score.Reveal;
@@ -222,8 +250,8 @@ let handle_reveal (ws : Dream.websocket) (state : Types.puzzle ref) (session : S
   end
   else Lwt.return_unit
 
-(* load_next_puzzle: pull the next puzzle from the per-session picker and
-   replace the current state. Resets the per-puzzle timer. If the picker is
+(** [load_next_puzzle ws picker state start_time] pulls the next puzzle from the per-session [picker] and
+   replace the current [state], resets [start_time]. If the picker is
    empty, sends DONE| so the frontend can show an end-of-session screen. *)
 let load_next_puzzle (ws : Dream.websocket) (picker : Parser.picker)
     (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
@@ -236,24 +264,52 @@ let load_next_puzzle (ws : Dream.websocket) (picker : Parser.picker)
       let* () = send_progress ws state in
       send_timer ws !start_time
 
+(** [handle_skip ws picker state session start_time] records a skip in [session]
+   and immediately loads the next puzzle via [load_next_puzzle]. *)
 let handle_skip (ws : Dream.websocket) (picker : Parser.picker)
     (state : Types.puzzle ref) (session : Score.session ref)
     (start_time : float ref) : unit Lwt.t =
   session := Score.apply_skip !session;
   load_next_puzzle ws picker state start_time
 
+(** [handle_next ws picker state start_time] advances to the next puzzle without
+   penalising the session (used after a win).
+ 
+   Delegates directly to [load_next_puzzle]. *)
 let handle_next (ws : Dream.websocket) (picker : Parser.picker)
     (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
   load_next_puzzle ws picker state start_time
 
+(** [starts_with prefix s] returns [true] if [s] begins with [prefix]. *)
 let starts_with (prefix : string) (s : string) : bool =
   let n = String.length prefix in
   String.length s >= n && String.sub s 0 n = prefix
 
+(** [strip_prefix prefix s] returns [s] with the leading [prefix] removed.
+ 
+   Behaviour is undefined if [s] does not start with [prefix];
+   always guard with [starts_with] first. *)
 let strip_prefix (prefix : string) (s : string) : string =
   let n = String.length prefix in
   String.sub s n (String.length s - n)
 
+(** [ws_handler req] handles one WebSocket connection (one browser session).
+ 
+   Dream calls this function whenever a browser opens [ws://localhost:8080/ws].
+ 
+   Steps:
+   1. Register the socket in [clients].
+   2. Pick a fresh puzzle via [Parser.choose_puzzle] using a per-session [picker]
+      so each browser session gets its own no-repeat queue.
+   3. If no puzzle matches [default_difficulty], log the error, send an [ERROR|]
+      message, and close the socket.
+   4. Wrap the puzzle in a [ref] so [handle_guess] and friends can mutate [solved] flags.
+   5. Send the initial [BRACKET], [PROGRESS], and [TIMER] messages so the player
+      sees the puzzle immediately on load.
+   6. Enter [keep_open], a tail-recursive Lwt loop that blocks on [Dream.receive],
+      dispatches each incoming message to the appropriate handler, and exits when
+      the client disconnects ([Dream.receive] returns [None]).
+   7. [Lwt.finalize] guarantees [remove_client] runs on disconnect or error. *)
 let ws_handler (req : Dream.request) : Dream.response Lwt.t =
   ignore req;
   Dream.websocket (fun ws ->
@@ -322,9 +378,13 @@ let ws_handler (req : Dream.request) : Dream.response Lwt.t =
           remove_client ws;
           Lwt.return_unit))
 
-(* Start the Dream HTTP + WebSocket server.
-   
-  Routes are identical to main.ml so the same frontend files are served. *)
+(** Start the Dream HTTP + WebSocket server.
+ 
+   Routes are identical to [main.ml] so the same frontend files are served:
+   - [GET /]    → [public/index.html]
+   - [GET /game] → [public/game.html]
+   - [GET /ws]  → [ws_handler]
+   - [GET /**]  → static files under [public/] *)
 let () =
   Dream.run @@ Dream.logger
   @@ Dream.router
