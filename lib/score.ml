@@ -7,6 +7,7 @@ type session = {
   hint_count : int;
   streak : int;
   max_streak : int;
+  pending_penalty : int;
 }
 
 type summary = {
@@ -28,6 +29,7 @@ let make_session () : session =
     hint_count = 0;
     streak = 0;
     max_streak = 0;
+    pending_penalty = 0;
   }
 
 let base_points (difficulty : string) : int =
@@ -59,13 +61,19 @@ let apply_correct (s : session) (difficulty : string) (depth : int) : session =
   let pts = score_for_node difficulty depth in
   let new_streak = s.streak + 1 in
   let bonus = streak_bonus new_streak in
+  let gross = pts + bonus in
+  (* Pay any pending penalty (from earlier wrongs/hints that hit the 0-floor)
+     before banking the remaining points. *)
+  let pay = min gross s.pending_penalty in
+  let net = gross - pay in
   {
-    score = s.score + pts + bonus;
+    score = s.score + net;
     correct_count = s.correct_count + 1;
     wrong_count = s.wrong_count;
     hint_count = s.hint_count;
     streak = new_streak;
     max_streak = max s.max_streak new_streak;
+    pending_penalty = s.pending_penalty - pay;
   }
 
 let apply_correct_from_puzzle (s : session) (p : puzzle) (n : node) : session =
@@ -73,23 +81,27 @@ let apply_correct_from_puzzle (s : session) (p : puzzle) (n : node) : session =
   apply_correct s p.difficulty depth
 
 let apply_wrong (s : session) : session =
+  let pay = min s.score wrong_penalty in
   {
-    score = max 0 (s.score - wrong_penalty);
+    score = s.score - pay;
     correct_count = s.correct_count;
     wrong_count = s.wrong_count + 1;
     hint_count = s.hint_count;
     streak = 0;
     max_streak = s.max_streak;
+    pending_penalty = s.pending_penalty + (wrong_penalty - pay);
   }
 
 let apply_hint (s : session) : session =
+  let pay = min s.score hint_penalty in
   {
-    score = max 0 (s.score - hint_penalty);
+    score = s.score - pay;
     correct_count = s.correct_count;
     wrong_count = s.wrong_count;
     hint_count = s.hint_count + 1;
     streak = s.streak;
     max_streak = s.max_streak;
+    pending_penalty = s.pending_penalty + (hint_penalty - pay);
   }
 
 let time_bonus (elapsed_seconds : int) : int =

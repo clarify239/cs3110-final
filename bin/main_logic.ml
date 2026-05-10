@@ -211,8 +211,10 @@ let ws_handler (req : Dream.request) : Dream.response Lwt.t =
   Dream.websocket (fun ws ->
       clients := ws :: !clients;
 
-      (* Parser.choose_puzzle returns an option *)
-      let state_opt = Parser.choose_puzzle default_difficulty all_puzzles in
+      (* One picker per WebSocket connection so each browser session gets its
+         own no-repeat queue independent of other connected clients. *)
+      let picker = Parser.make_picker all_puzzles in
+      let state_opt = Parser.choose_puzzle picker default_difficulty in
 
       (* Lwt.finalize ensures cleanup runs *)
       Lwt.finalize

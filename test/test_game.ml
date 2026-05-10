@@ -10,7 +10,8 @@ let puzzles = load_puzzles "../data/ver2_NESTED_puzzles.json"
 let puzzle = List.hd puzzles
 
 (** a random hard puzzle in the list of loaded puzzles*)
-let puzzle_hard = choose_puzzle "hard" puzzles |> Option.get
+let puzzle_hard =
+  choose_puzzle (make_picker puzzles) "hard" |> Option.get
 
 (** Pretty-print a label_part list so assert_equal failures are readable. *)
 let string_of_part = function
@@ -90,16 +91,17 @@ let tests =
          ( "choose_puzzle returns a random puzzle with the right difficulty \
             and None if there are no puzzles"
          >:: fun _ ->
-           let difficult_puzzle = choose_puzzle "hard" puzzles in
+           let picker = make_picker puzzles in
+           let difficult_puzzle = choose_puzzle picker "hard" in
 
            match difficult_puzzle with
            | None -> assert_failure "Expected Some but got None"
            | Some p ->
                assert_equal "hard" p.difficulty;
 
-               let easy_puzzle = Option.get (choose_puzzle "easy" puzzles) in
-               assert_equal "computer science" easy_puzzle.theme;
-               let no_puzzle = choose_puzzle "legendary" puzzles in
+               let easy_puzzle = Option.get (choose_puzzle picker "easy") in
+               assert_equal "easy" easy_puzzle.difficulty;
+               let no_puzzle = choose_puzzle picker "legendary" in
                assert_equal None no_puzzle );
          ( "testing normalize function" >:: fun _ ->
            let word = "    good   " in
@@ -317,7 +319,7 @@ let tests =
            in
 
            let puzzles = [ p1; p2 ] in
-           assert_equal (Some p2) (choose_puzzle "easy" puzzles);
+           assert_equal (Some p2) (choose_puzzle (make_picker puzzles) "easy");
            let puzzles =
              [
                {
@@ -346,7 +348,7 @@ let tests =
                };
              ]
            in
-           let puzzle = choose_puzzle "easy" puzzles in
+           let puzzle = choose_puzzle (make_picker puzzles) "easy" in
            let is_correct =
              match puzzle with
              | Some p -> p.id = 2 || p.id = 3
@@ -387,9 +389,10 @@ let tests =
            in
 
            let puzzles = [ p1; p2; p3 ] in
-           assert_equal (Some p1) (choose_puzzle "easy" puzzles) );
+           assert_equal (Some p1) (choose_puzzle (make_picker puzzles) "easy")
+         );
          ( "choose_puzzle returns None on an empty puzzle list" >:: fun _ ->
-           assert_equal None (choose_puzzle "easy" []) );
+           assert_equal None (choose_puzzle (make_picker []) "easy") );
          (* is_won tests *)
          ( "is_won returns false on a fresh puzzle" >:: fun _ ->
            let leaf =

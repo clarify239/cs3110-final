@@ -22,8 +22,13 @@ let parse_puzzle json =
 let load_puzzles filepath =
   Yojson.Basic.from_file filepath |> to_list |> List.map parse_puzzle
 
-let remaining_by_difficulty : (string, Types.puzzle list ref) Hashtbl.t =
-  Hashtbl.create 8
+type picker = {
+  all : Types.puzzle list;
+  queues : (string, Types.puzzle list ref) Hashtbl.t;
+}
+
+let make_picker (puzzles : Types.puzzle list) : picker =
+  { all = puzzles; queues = Hashtbl.create 8 }
 
 let () = Random.self_init ()
 
@@ -40,26 +45,26 @@ let shuffle_list (lst : 'a list) : 'a list =
 let fresh_queue_for_difficulty (difficulty : string)
     (puzzles : Types.puzzle list) : Types.puzzle list =
   puzzles
-  |> List.filter (fun (p : Types.puzzle) -> p.difficulty = difficulty)
+  |> List.filter (fun (p : Types.puzzle) ->
+         p.difficulty = difficulty && not p.solved_puzzle)
   |> shuffle_list
 
-let choose_puzzle (difficulty : string) (puzzles : Types.puzzle list) :
+let choose_puzzle (picker : picker) (difficulty : string) :
     Types.puzzle option =
   let queue =
-    match Hashtbl.find_opt remaining_by_difficulty difficulty with
+    match Hashtbl.find_opt picker.queues difficulty with
     | Some q -> q
     | None ->
-        let q = ref (fresh_queue_for_difficulty difficulty puzzles) in
-        Hashtbl.add remaining_by_difficulty difficulty q;
+        let q = ref (fresh_queue_for_difficulty difficulty picker.all) in
+        Hashtbl.add picker.queues difficulty q;
         q
   in
-
   match !queue with
   | puzzle :: rest ->
       queue := rest;
       Some puzzle
   | [] -> (
-      let fresh = fresh_queue_for_difficulty difficulty puzzles in
+      let fresh = fresh_queue_for_difficulty difficulty picker.all in
       queue := fresh;
       match !queue with
       | puzzle :: rest ->

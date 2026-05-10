@@ -12,6 +12,11 @@ type session = {
   hint_count : int;  (** number of hints used so far *)
   streak : int;  (** current consecutive-correct streak *)
   max_streak : int;  (** highest streak reached this session *)
+  pending_penalty : int;
+      (** unpaid wrong/hint penalty accumulated when the score floor (0)
+          would have absorbed a deduction. The next correct guess pays this
+          off before banking points, so penalties on a zero score still cost
+          the player against future earnings. *)
 }
 
 (** A read-only end-of-game snapshot produced by [make_summary]. *)
