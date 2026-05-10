@@ -72,8 +72,6 @@ let _send_exposed (ws : Dream.websocket) (state : Types.puzzle ref) : unit Lwt.t
   let exposed_nodes = Game.exposed !state in
   let answer_list = List.map (fun (n : Types.node) -> n.answer) exposed_nodes in
   let csv = String.concat "," answer_list in
-  (* STUB: uncomment the line below once the frontend handles "EXPOSED|" *)
-  (* send_to ws ("EXPOSED|" ^ csv) *)
   ignore csv;
   ignore ws;
   Lwt.return_unit
