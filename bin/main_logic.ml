@@ -274,9 +274,8 @@ let handle_reveal (ws : Dream.websocket) (state : Types.puzzle ref)
     per-session [picker] and replace the current [state], resets [start_time].
     If the picker is empty, sends DONE| so the frontend can show an
     end-of-session screen. *)
-let load_next_puzzle (ws : Dream.websocket) (picker : Parser.picker)
-    (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
-  match Parser.choose_puzzle picker default_difficulty with
+let load_next_puzzle ws picker state start_time difficulty =
+  match Parser.choose_puzzle picker difficulty with
   | None -> send_to ws "DONE|No more puzzles available"
   | Some new_puzzle ->
       state := new_puzzle;
@@ -289,17 +288,16 @@ let load_next_puzzle (ws : Dream.websocket) (picker : Parser.picker)
     and immediately loads the next puzzle via [load_next_puzzle]. *)
 let handle_skip (ws : Dream.websocket) (picker : Parser.picker)
     (state : Types.puzzle ref) (session : Score.session ref)
-    (start_time : float ref) : unit Lwt.t =
+    (start_time : float ref) difficulty : unit Lwt.t =
   session := Score.apply_skip !session;
-  load_next_puzzle ws picker state start_time
-
+load_next_puzzle ws picker state start_time difficulty
 (** [handle_next ws picker state start_time] advances to the next puzzle without
     penalising the session (used after a win).
 
     Delegates directly to [load_next_puzzle]. *)
 let handle_next (ws : Dream.websocket) (picker : Parser.picker)
-    (state : Types.puzzle ref) (start_time : float ref) : unit Lwt.t =
-  load_next_puzzle ws picker state start_time
+    (state : Types.puzzle ref) (start_time : float ref) difficulty: unit Lwt.t =
+load_next_puzzle ws picker state start_time difficulty
 
 (** [starts_with prefix s] returns [true] if [s] begins with [prefix]. *)
 let starts_with (prefix : string) (s : string) : bool =
@@ -386,9 +384,9 @@ let ws_handler (req : Dream.request) : Dream.response Lwt.t =
                         handle_reveal ws state session !start_time
                           (strip_prefix "REVEAL|" raw)
                       else if starts_with "SKIP|" raw then
-                        handle_skip ws picker state session start_time
+                        handle_skip ws picker state session start_time difficulty
                       else if starts_with "NEXT|" raw then
-                        handle_next ws picker state start_time
+                        handle_next ws picker state start_time difficulty
                       else handle_guess ws state session !start_time raw
                     in
                     keep_open ()
