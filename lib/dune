@@ -1,4 +1,6 @@
 (library
  (name cs3110_final)
  (modules parser types game score)
- (libraries yojson))
+ (libraries yojson)
+ (instrumentation
+  (backend bisect_ppx)))

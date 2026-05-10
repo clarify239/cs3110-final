@@ -1,3 +1,5 @@
 (executables
  (names main main_logic)
- (libraries dream yojson cs3110_final))
+ (libraries dream yojson cs3110_final)
+ (instrumentation
+  (backend bisect_ppx)))
