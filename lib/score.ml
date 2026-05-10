@@ -20,7 +20,7 @@
     Representation Invariant: [final_score] >= 0. [accuracy] is in [0.0,
     1.0]. [grade] is one of "S","A","B","C","D". [max_streak] >= 0.
     [hints_used] >= 0. *)
-    
+
 open Types
 
 type session = {
@@ -208,8 +208,7 @@ let apply_time_bonus (s : session) (elapsed_seconds : int) : session =
 
 let accuracy (s : session) : float =
   let total = total_attempts s in
-  if total = 0 then 0.0
-  else float_of_int s.correct_count /. float_of_int total
+  if total = 0 then 0.0 else float_of_int s.correct_count /. float_of_int total
 
 let is_perfect (s : session) : bool =
   s.wrong_count = 0 && s.hint_count = 0 && s.skip_count = 0
